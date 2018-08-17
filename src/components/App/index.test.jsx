@@ -4,8 +4,8 @@ import Enzyme, { shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 Enzyme.configure({ adapter: new Adapter() });
 
-import HelloWorld from "./index";
+import App from "./index";
 
 it("Runs without crashing", () => {
-  const wrapper = shallow(<HelloWorld />);
+  const wrapper = shallow(<App />);
 });
