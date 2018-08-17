@@ -2,6 +2,9 @@
 
 Native text editor that reports NPL sentiment analysis
 
+[![Build Status](https://semaphoreci.com/api/v1/thomascountz1/relay/branches/master/badge.svg)](https://semaphoreci.com/thomascountz1/relay)
+
+
 ## Stack
 
 - Electron - Desktop app javascript framework
