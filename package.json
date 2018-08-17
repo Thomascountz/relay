@@ -1,7 +1,7 @@
 {
-  "name": "new-react-app",
+  "name": "relay",
   "version": "1.0.0",
-  "description": "Build a react app from scratch",
+  "description": "Native text editor that reports NPL sentiment analysis",
   "main": "main.js",
   "scripts": {
     "bundle": "webpack --mode development",
