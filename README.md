@@ -1,6 +1,7 @@
-# Relay
+# Relay <img src="https://s8.postimg.cc/kqvsuvir9/Relay_Logo.jpg" alt="relay logo" width="100" align="right"/>
 
-Native text editor that reports NPL sentiment analysis
+Native text editor that reports NPL sentiment analysis 
+
 
 [![Build Status](https://semaphoreci.com/api/v1/thomascountz1/relay/branches/master/badge.svg)](https://semaphoreci.com/thomascountz1/relay)
 
