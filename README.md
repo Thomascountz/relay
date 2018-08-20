@@ -18,7 +18,7 @@ Native text editor that reports NPL sentiment analysis
 
 ## Installation
 
-Download link coming soon
+Released here: https://github.com/Thomascountz/relay/releases
 
 ## Issues and Bug Reports
 
