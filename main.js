@@ -1,5 +1,7 @@
 const electron = require("electron");
-const { app, BrowserWindow, Menu } = electron;
+const { app, BrowserWindow, Menu, ipcMain } = electron;
+const { template } = require("./src/helpers/context_menu");
+const { saveToFile } = require("./src/helpers/saveToFile");
 
 // Use electron-reload in development to reload app on file change
 if (
@@ -24,37 +26,6 @@ function createWindow() {
   // win.webContents.openDevTools();
 
   // Create menu
-  var template = [
-    {
-      label: "Relay",
-      submenu: [
-        {
-          label: "Quit",
-          accelerator: "Command+Q",
-          click: function() {
-            app.quit();
-          }
-        }
-      ]
-    },
-    {
-      label: "Edit",
-      submenu: [
-        { label: "Undo", accelerator: "CmdOrCtrl+Z", selector: "undo:" },
-        { label: "Redo", accelerator: "Shift+CmdOrCtrl+Z", selector: "redo:" },
-        { type: "separator" },
-        { label: "Cut", accelerator: "CmdOrCtrl+X", selector: "cut:" },
-        { label: "Copy", accelerator: "CmdOrCtrl+C", selector: "copy:" },
-        { label: "Paste", accelerator: "CmdOrCtrl+V", selector: "paste:" },
-        {
-          label: "Select All",
-          accelerator: "CmdOrCtrl+A",
-          selector: "selectAll:"
-        }
-      ]
-    }
-  ];
-
   Menu.setApplicationMenu(Menu.buildFromTemplate(template));
 
   // Emitted when the window is closed.
@@ -63,6 +34,10 @@ function createWindow() {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     win = null;
+  });
+
+  ipcMain.on("saveValueToFile", (event, content) => {
+    saveToFile(content);
   });
 }
 
