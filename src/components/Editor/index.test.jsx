@@ -6,7 +6,9 @@ Enzyme.configure({ adapter: new Adapter() });
 
 import Editor from "./index";
 
-it("renders a textarea", () => {
-  const wrapper = shallow(<Editor />);
-  expect(wrapper.exists(".editorTextArea")).toEqual(true);
+describe("<TextArea />", () => {
+  it("renders a textarea", () => {
+    const wrapper = shallow(<Editor />);
+    expect(wrapper.exists(".editorTextArea")).toEqual(true);
+  });
 });
