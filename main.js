@@ -1,5 +1,5 @@
 const electron = require("electron");
-const { app, BrowserWindow } = electron;
+const { app, BrowserWindow, Menu } = electron;
 
 // Use electron-reload in development to reload app on file change
 if (
@@ -22,6 +22,40 @@ function createWindow() {
 
   // Open the DevTools.
   // win.webContents.openDevTools();
+
+  // Create menu
+  var template = [
+    {
+      label: "Relay",
+      submenu: [
+        {
+          label: "Quit",
+          accelerator: "Command+Q",
+          click: function() {
+            app.quit();
+          }
+        }
+      ]
+    },
+    {
+      label: "Edit",
+      submenu: [
+        { label: "Undo", accelerator: "CmdOrCtrl+Z", selector: "undo:" },
+        { label: "Redo", accelerator: "Shift+CmdOrCtrl+Z", selector: "redo:" },
+        { type: "separator" },
+        { label: "Cut", accelerator: "CmdOrCtrl+X", selector: "cut:" },
+        { label: "Copy", accelerator: "CmdOrCtrl+C", selector: "copy:" },
+        { label: "Paste", accelerator: "CmdOrCtrl+V", selector: "paste:" },
+        {
+          label: "Select All",
+          accelerator: "CmdOrCtrl+A",
+          selector: "selectAll:"
+        }
+      ]
+    }
+  ];
+
+  Menu.setApplicationMenu(Menu.buildFromTemplate(template));
 
   // Emitted when the window is closed.
   win.on("closed", () => {
