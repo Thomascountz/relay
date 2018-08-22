@@ -7,7 +7,7 @@ import Editor from "../Editor/index";
 const App = () => {
   return (
     <div className="app">
-      <h1> Hello, World! </h1>
+      <h1> Hello, Relay! </h1>
       <Editor />
     </div>
   );
