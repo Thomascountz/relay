@@ -6,6 +6,9 @@ Enzyme.configure({ adapter: new Adapter() });
 
 import App from "./index";
 
-it("Runs without crashing", () => {
-  const wrapper = shallow(<App />);
+describe("<App />", () => {
+  it("Runs without crashing", () => {
+    const wrapper = shallow(<App />);
+    expect(wrapper.exists()).toEqual(true);
+  });
 });
