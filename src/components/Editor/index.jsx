@@ -22,13 +22,12 @@ class Editor extends Component {
         <textarea
           autoFocus="true"
           className="editorTextArea"
-          onChange={this.handleChange.bind(this)}
+          onChange={e => {
+            this.handleChange(e);
+          }}
           value={this.state.value}
         />
-        <button
-          className="saveButton"
-          onClick={this.saveValueToFile.bind(this)}
-        >
+        <button className="saveButton" onClick={this.saveValueToFile}>
           Save
         </button>
       </div>
