@@ -1,7 +1,7 @@
 const electron = require("electron");
 const { app, BrowserWindow, Menu, ipcMain } = electron;
-const { template } = require("./src/helpers/context_menu");
-const { saveToFile } = require("./src/helpers/saveToFile");
+const { template } = require("./src/context_menu");
+const { saveToFile } = require("./src/saveToFile");
 
 // Use electron-reload in development to reload app on file change
 if (
@@ -23,7 +23,7 @@ function createWindow() {
   win.loadFile("./public/index.html");
 
   // Open the DevTools.
-  // win.webContents.openDevTools();
+  win.webContents.openDevTools();
 
   // Create menu
   Menu.setApplicationMenu(Menu.buildFromTemplate(template));

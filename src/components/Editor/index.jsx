@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ipcRenderer } from "electron";
+import { promptUserToSaveContentToFile } from "../../native_ui";
 import { hot } from "react-hot-loader";
 import "./styles.css";
 
@@ -12,8 +12,8 @@ class Editor extends Component {
     this.setState({ value: event.currentTarget.value });
   };
 
-  saveValueToFile = () => {
-    ipcRenderer.send("saveValueToFile", this.state.value);
+  handleClick = () => {
+    promptUserToSaveContentToFile(this.state.value);
   };
 
   render() {
@@ -27,7 +27,7 @@ class Editor extends Component {
           }}
           value={this.state.value}
         />
-        <button className="saveButton" onClick={this.saveValueToFile}>
+        <button className="saveButton" onClick={this.handleClick}>
           Save
         </button>
       </div>
