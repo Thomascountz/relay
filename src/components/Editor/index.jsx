@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { promptUserToSaveContentToFile } from "../../native_ui";
+import { promptUserToSaveContentToFile } from "../../nativeUI";
 import { hot } from "react-hot-loader";
 import "./styles.css";
 

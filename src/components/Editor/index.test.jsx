@@ -4,6 +4,9 @@ import Enzyme, { shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 Enzyme.configure({ adapter: new Adapter() });
 
+jest.mock("../../nativeUI");
+import { promptUserToSaveContentToFile } from "../../nativeUI";
+
 import Editor from "./index";
 
 describe("<Editor />", () => {
@@ -24,16 +27,14 @@ describe("<Editor />", () => {
     expect(wrapper.state("value")).toEqual(newValue);
   });
 
-  it("saves value to file when button is pressed", () => {
-    const native_ui = require("../../native_ui");
-    const promptUserToSaveContentToFile = jest.fn();
-    native_ui.promptUserToSaveContentToFile = promptUserToSaveContentToFile;
-
+  it("saves value to file when save button is pressed", () => {
     const wrapper = shallow(<Editor />);
+    const textareaContent = "Hello World!";
+    wrapper.setState({ value: textareaContent });
     const saveButton = wrapper.find(".saveButton");
 
     saveButton.simulate("click");
 
-    expect(promptUserToSaveContentToFile).toBeCalledWith("");
+    expect(promptUserToSaveContentToFile).toBeCalledWith(textareaContent);
   });
 });
