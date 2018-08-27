@@ -5,7 +5,7 @@ import Adapter from "enzyme-adapter-react-16";
 Enzyme.configure({ adapter: new Adapter() });
 
 jest.mock("../../nativeUI");
-import { promptUserToSaveContentToFile } from "../../nativeUI";
+import nativeUI from "../../nativeUI";
 
 import Editor from "./index";
 
@@ -35,6 +35,8 @@ describe("<Editor />", () => {
 
     saveButton.simulate("click");
 
-    expect(promptUserToSaveContentToFile).toBeCalledWith(textareaContent);
+    expect(nativeUI.promptUserToSaveContentToFile).toBeCalledWith(
+      textareaContent
+    );
   });
 });

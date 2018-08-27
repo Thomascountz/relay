@@ -1,9 +1,10 @@
 import { promptUserToSaveContentToFile } from "./nativeUI";
-import { ipcRenderer } from "electron";
+
+import electron from "electron";
 
 describe("Native UI", () => {
   it("sends an ipcRenderer message", () => {
     promptUserToSaveContentToFile("foo");
-    expect(ipcRenderer.send).toBeCalledWith("saveValueToFile", "foo");
+    expect(electron.ipcRenderer.send).toBeCalledWith("saveValueToFile", "foo");
   });
 });
