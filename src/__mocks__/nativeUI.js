@@ -1,1 +1,3 @@
-export const promptUserToSaveContentToFile = jest.fn();
+module.exports = {
+  promptUserToSaveContentToFile: jest.fn()
+};

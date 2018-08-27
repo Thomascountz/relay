@@ -1,5 +1,9 @@
 import { ipcRenderer } from "electron";
 
-exports.promptUserToSaveContentToFile = function(contents) {
+const promptUserToSaveContentToFile = function(contents) {
   ipcRenderer.send("saveValueToFile", contents);
+};
+
+module.exports = {
+  promptUserToSaveContentToFile: promptUserToSaveContentToFile
 };

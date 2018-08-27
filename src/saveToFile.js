@@ -1,7 +1,7 @@
 const { dialog } = require("electron");
 const fs = require("fs");
 
-exports.saveToFile = function(content) {
+const saveToFile = function(content) {
   dialog.showSaveDialog(fileName => {
     if (fileName === undefined) {
       return;
@@ -17,4 +17,8 @@ exports.saveToFile = function(content) {
       });
     });
   });
+};
+
+module.exports = {
+  saveToFile: saveToFile
 };

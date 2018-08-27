@@ -1,3 +1,5 @@
-export const ipcRenderer = {
-  send: jest.fn()
+module.exports = {
+  ipcRenderer: {
+    send: jest.fn()
+  }
 };
