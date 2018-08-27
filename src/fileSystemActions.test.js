@@ -14,47 +14,43 @@ describe("saveToFile", () => {
   it("saves content to a file", () => {
     const fileName = "foo.txt";
     const content = "foobar";
-
-    nativeUI.getFileNameFromUser = jest.fn(() => {
+    nativeUI.getFileNameFromUser = () => {
       return fileName;
-    });
+    };
 
-    return saveToFile(content).then(() => {
-      expect(nativeUI.getFileNameFromUser).toBeCalled();
-      expect(nativeUI.displayInfoMessage).toBeCalled();
-      expect(fs.writeFile).toBeCalled();
-    });
+    saveToFile(content);
+
+    const fsErrorCallback = fs.writeFile.mock.calls[0][2];
+    fsErrorCallback(null);
+
+    expect(nativeUI.displayInfoMessage).toBeCalled();
+    expect(fs.writeFile).toBeCalled();
   });
 
-  it("does nothing if fileName is undefined", () => {
+  it("does not write a file if fileName is undefined", () => {
     const fileName = undefined;
     const content = "foobar";
-
-    nativeUI.getFileNameFromUser = jest.fn(() => {
+    nativeUI.getFileNameFromUser = () => {
       return fileName;
-    });
+    };
 
-    return saveToFile(content).catch(err => {
-      expect(nativeUI.getFileNameFromUser).toBeCalled();
-      expect(nativeUI.displayInfoMessage).not.toBeCalled();
-      expect(fs.writeFile).not.toBeCalled();
-    });
+    saveToFile(content);
+
+    expect(fs.writeFile).not.toBeCalled();
   });
 
   it("displays an error message if fs encounters an error", () => {
-    const fileName = "test.txt";
+    const fileName = "foo.txt";
     const content = "foobar";
-
-    nativeUI.getFileNameFromUser = jest.fn(() => {
+    nativeUI.getFileNameFromUser = () => {
       return fileName;
-    });
+    };
 
-    fs.writeFile = jest.fn(() => {
-      return new Error("TEST TEST TEST");
-    });
+    saveToFile(content);
 
-    return saveToFile(content).catch(err => {
-      expect(nativeUI.displayErrorMessage).toBeCalled();
-    });
+    const fsErrorCallback = fs.writeFile.mock.calls[0][2];
+    fsErrorCallback(new Error());
+
+    expect(nativeUI.displayErrorMessage).toBeCalled();
   });
 });
