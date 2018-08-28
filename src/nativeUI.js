@@ -5,7 +5,14 @@ const promptUserToSaveContentToFile = contents => {
 };
 
 const getFileNameFromUser = () => {
-  return dialog.showSaveDialog();
+  return dialog.showSaveDialog({
+    filters: [
+      {
+        name: "Text",
+        extensions: ["txt"]
+      }
+    ]
+  });
 };
 
 const displayErrorMessage = (errorTitle, errorMessage) => {
