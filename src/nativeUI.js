@@ -4,6 +4,8 @@ const promptUserToSaveContentToFile = contents => {
   ipcRenderer.send("saveValueToFile", contents);
 };
 
+const promptUserToOpenFileContents = () => {};
+
 const getFileNameFromUser = () => {
   return dialog.showSaveDialog({
     filters: [
@@ -29,6 +31,7 @@ const displayInfoMessage = (messageTitle, message) => {
 
 module.exports = {
   promptUserToSaveContentToFile: promptUserToSaveContentToFile,
+  promptUserToOpenFileContents: promptUserToOpenFileContents,
   getFileNameFromUser: getFileNameFromUser,
   displayErrorMessage: displayErrorMessage,
   displayInfoMessage: displayInfoMessage

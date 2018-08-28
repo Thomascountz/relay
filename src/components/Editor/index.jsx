@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { promptUserToSaveContentToFile } from "../../nativeUI";
+import nativeUI from "../../nativeUI";
 import { hot } from "react-hot-loader";
 import "./styles.css";
 
@@ -12,8 +12,12 @@ class Editor extends Component {
     this.setState({ value: event.currentTarget.value });
   };
 
-  handleClick = () => {
-    promptUserToSaveContentToFile(this.state.value);
+  handleSaveClick = () => {
+    nativeUI.promptUserToSaveContentToFile(this.state.value);
+  };
+
+  handleOpenClick = () => {
+    this.setState({ value: nativeUI.promptUserToOpenFileContents() });
   };
 
   render() {
@@ -27,8 +31,11 @@ class Editor extends Component {
           }}
           value={this.state.value}
         />
-        <button className="saveButton" onClick={this.handleClick}>
+        <button className="button saveButton" onClick={this.handleSaveClick}>
           Save
+        </button>
+        <button className="button openButton" onClick={this.handleOpenClick}>
+          Open
         </button>
       </div>
     );

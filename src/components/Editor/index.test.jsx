@@ -4,12 +4,16 @@ import Enzyme, { shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 Enzyme.configure({ adapter: new Adapter() });
 
-jest.mock("../../nativeUI");
 import nativeUI from "../../nativeUI";
+jest.mock("../../nativeUI");
 
 import Editor from "./index";
 
 describe("<Editor />", () => {
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
   it("renders a textarea", () => {
     const wrapper = shallow(<Editor />);
     expect(wrapper.exists(".editorTextArea")).toEqual(true);
@@ -38,5 +42,20 @@ describe("<Editor />", () => {
     expect(nativeUI.promptUserToSaveContentToFile).toBeCalledWith(
       textareaContent
     );
+  });
+
+  it("updates the value to a text file's contents when open button is pressed", () => {
+    const wrapper = shallow(<Editor />);
+    const openButton = wrapper.find(".openButton");
+    const fileContents = "Hello, World!";
+
+    nativeUI.promptUserToOpenFileContents = jest.fn(() => {
+      return fileContents;
+    });
+
+    openButton.simulate("click");
+
+    expect(nativeUI.promptUserToOpenFileContents).toBeCalled();
+    expect(wrapper.state("value")).toEqual(fileContents);
   });
 });
