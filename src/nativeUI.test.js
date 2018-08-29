@@ -13,6 +13,18 @@ describe("Native UI", () => {
     });
   });
 
+  describe("promptUserToOpenFileContents", () => {
+    it("sends an ipcRenderer message", () => {
+      nativeUI.promptUserToOpenFileContents = () => {
+        return Promise.resolve("foo");
+      };
+
+      return nativeUI.promptUserToOpenFileContents().then(data => {
+        expect(data).toEqual("foo");
+      });
+    });
+  });
+
   describe("getFileNameFromUser", () => {
     it("opens a saveDialog and returns a fileNamne", () => {
       nativeUI.getFileNameFromUser();

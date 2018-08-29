@@ -4,7 +4,14 @@ const promptUserToSaveContentToFile = contents => {
   ipcRenderer.send("saveValueToFile", contents);
 };
 
-const promptUserToOpenFileContents = () => {};
+const promptUserToOpenFileContents = () => {
+  return new Promise(resolve => {
+    ipcRenderer.send("async");
+    ipcRenderer.on("reply", (event, result) => {
+      resolve(result);
+    });
+  });
+};
 
 const getFileNameFromUser = () => {
   return dialog.showSaveDialog({
