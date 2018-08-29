@@ -1,7 +1,7 @@
 const electron = require("electron");
 const { app } = electron;
 
-exports.template = [
+const template = [
   {
     label: "Relay",
     submenu: [
@@ -31,3 +31,7 @@ exports.template = [
     ]
   }
 ];
+
+module.exports = {
+  template: template
+};

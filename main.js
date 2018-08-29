@@ -1,7 +1,7 @@
 const electron = require("electron");
 const { app, BrowserWindow, Menu, ipcMain } = electron;
 const { template } = require("./src/context_menu");
-const { saveToFile } = require("./src/saveToFile");
+const { saveToFile } = require("./src/fileSystemActions");
 
 // Use electron-reload in development to reload app on file change
 if (
