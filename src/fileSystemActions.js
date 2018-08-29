@@ -1,21 +1,23 @@
 const nativeUI = require("./nativeUI");
-const fs = require("fs");
 
 const saveToFile = content => {
-  const fileName = nativeUI.getFileNameFromUser();
-  if (fileName === undefined) {
-    return;
-  }
-  fs.writeFile(fileName, content, error => {
-    if (error) {
-      nativeUI.displayErrorMessage("An error has occurred", error.message);
-    } else {
-      nativeUI.displayInfoMessage(
+  return nativeUI
+    .getFileNameFromUser()
+    .then(response => {
+      return nativeUI.writeToFile(response, content);
+    })
+    .then(() => {
+      return nativeUI.displayInfoMessage(
         "File Saved",
-        "Your document has been saved."
+        "Your document has been saved"
       );
-    }
-  });
+    })
+    .catch(error => {
+      return nativeUI.displayErrorMessage(
+        "An error has ocurred",
+        error.message
+      );
+    });
 };
 
 module.exports = {

@@ -1,17 +1,27 @@
 const { ipcRenderer, dialog } = require("electron");
+const util = require("util");
+const fs = require("fs");
 
 const promptUserToSaveContentToFile = contents => {
   ipcRenderer.send("saveValueToFile", contents);
 };
 
 const getFileNameFromUser = () => {
-  return dialog.showSaveDialog({
-    filters: [
-      {
-        name: "Text",
-        extensions: ["txt"]
-      }
-    ]
+  return new Promise((resolve, reject) => {
+    let fileName = dialog.showSaveDialog({
+      filters: [
+        {
+          name: "Text",
+          extensions: ["txt"]
+        }
+      ]
+    });
+
+    if (fileName === undefined) {
+      reject(new Error());
+    } else {
+      resolve(fileName);
+    }
   });
 };
 
@@ -27,9 +37,15 @@ const displayInfoMessage = (messageTitle, message) => {
   });
 };
 
+const writeToFile = (file, content) => {
+  const writeFile = util.promisify(fs.writeFile);
+  return writeFile(file, content);
+};
+
 module.exports = {
   promptUserToSaveContentToFile: promptUserToSaveContentToFile,
   getFileNameFromUser: getFileNameFromUser,
   displayErrorMessage: displayErrorMessage,
-  displayInfoMessage: displayInfoMessage
+  displayInfoMessage: displayInfoMessage,
+  writeToFile: writeToFile
 };
