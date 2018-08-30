@@ -3,9 +3,14 @@ const nativeUI = require("./nativeUI");
 const saveToFile = content => {
   return nativeUI
     .getFileNameFromUser()
-    .then(response => {
-      return nativeUI.writeToFile(response, content);
-    })
+    .then(
+      fileName => {
+        return nativeUI.writeToFile(fileName, content);
+      },
+      () => {
+        return;
+      }
+    )
     .then(() => {
       return nativeUI.displayInfoMessage(
         "File Saved",

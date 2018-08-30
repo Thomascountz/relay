@@ -27,7 +27,7 @@ describe("saveToFile", () => {
   });
 
   it("does not write a file if fileName is rejected", async () => {
-    expect.assertions(1);
+    expect.assertions(2);
     const content = "foobar";
 
     nativeUI.getFileNameFromUser = jest.fn(() => {
@@ -36,7 +36,8 @@ describe("saveToFile", () => {
 
     await saveToFile(content);
 
-    expect(nativeUI.displayErrorMessage).toBeCalled();
+    expect(nativeUI.writeToFile).not.toBeCalled();
+    expect(nativeUI.displayErrorMessage).not.toBeCalled();
   });
 
   it("displays an error message if writeToFile encounters an error", async () => {
