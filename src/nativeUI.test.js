@@ -1,8 +1,13 @@
 import nativeUI from "./nativeUI";
-
 import electron from "electron";
+import fs from "fs";
+jest.mock("fs");
 
 describe("Native UI", () => {
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
+
   describe("promptUserToSaveContentToFile", () => {
     it("sends an ipcRenderer message", () => {
       nativeUI.promptUserToSaveContentToFile("foo");
@@ -14,10 +19,23 @@ describe("Native UI", () => {
   });
 
   describe("getFileNameFromUser", () => {
-    it("opens a saveDialog and returns a fileNamne", () => {
-      nativeUI.getFileNameFromUser();
+    it("returns a resolved promise with the fileName the user entered", () => {
+      const fileName = "test.txt";
+      electron.dialog.showSaveDialog = jest.fn(() => {
+        return fileName;
+      });
 
-      expect(electron.dialog.showSaveDialog).toBeCalled();
+      return expect(nativeUI.getFileNameFromUser()).resolves.toEqual(fileName);
+    });
+
+    it("returns a rejected promise when the user doesn't enter a fileName", () => {
+      electron.dialog.showSaveDialog = jest.fn(() => {
+        return undefined;
+      });
+
+      return expect(nativeUI.getFileNameFromUser()).rejects.toBeInstanceOf(
+        Error
+      );
     });
   });
 
@@ -47,6 +65,17 @@ describe("Native UI", () => {
         title: messageTitle,
         message: message
       });
+    });
+  });
+
+  describe("writeToFile", () => {
+    it("makes a call to fs.writeFile", () => {
+      const file = "test.txt";
+      const content = "foobar";
+
+      nativeUI.writeToFile(file, content);
+
+      expect(fs.writeFile).toBeCalledWith(file, content, expect.any(Function));
     });
   });
 });
