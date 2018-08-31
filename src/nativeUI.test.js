@@ -1,5 +1,7 @@
 import nativeUI from "./nativeUI";
 import electron from "electron";
+import fs from "fs";
+jest.mock("fs");
 
 describe("Native UI", () => {
   beforeEach(() => {
@@ -63,6 +65,17 @@ describe("Native UI", () => {
         title: messageTitle,
         message: message
       });
+    });
+  });
+
+  describe("writeToFile", () => {
+    it("makes a call to fs.writeFile", () => {
+      const file = "test.txt";
+      const content = "foobar";
+
+      nativeUI.writeToFile(file, content);
+
+      expect(fs.writeFile).toBeCalledWith(file, content, expect.any(Function));
     });
   });
 });
