@@ -1,8 +1,5 @@
 import { saveToFile } from "./fileSystemActions";
 
-import fs from "fs";
-jest.mock("fs");
-
 import nativeUI from "./nativeUI";
 jest.mock("./nativeUI");
 
@@ -11,45 +8,53 @@ describe("saveToFile", () => {
     jest.resetAllMocks();
   });
 
-  it("saves content to a file", () => {
+  it("saves content to a file", async () => {
+    expect.assertions(1);
     const fileName = "foo.txt";
     const content = "foobar";
-    nativeUI.getFileNameFromUser = () => {
-      return fileName;
-    };
 
-    saveToFile(content);
+    nativeUI.getFileNameFromUser = jest.fn(() => {
+      return Promise.resolve(fileName);
+    });
 
-    const fsErrorCallback = fs.writeFile.mock.calls[0][2];
-    fsErrorCallback(null);
+    nativeUI.writeToFile = jest.fn(() => {
+      return Promise.resolve();
+    });
+
+    await saveToFile(content);
 
     expect(nativeUI.displayInfoMessage).toBeCalled();
-    expect(fs.writeFile).toBeCalled();
   });
 
-  it("does not write a file if fileName is undefined", () => {
-    const fileName = undefined;
+  it("does not write a file if fileName is rejected", async () => {
     const content = "foobar";
-    nativeUI.getFileNameFromUser = () => {
-      return fileName;
-    };
 
-    saveToFile(content);
+    nativeUI.getFileNameFromUser = jest.fn(() => {
+      return Promise.reject(new Error());
+    });
 
-    expect(fs.writeFile).not.toBeCalled();
+    await saveToFile(content);
+
+    expect(nativeUI.writeToFile).not.toBeCalled();
+    expect(nativeUI.displayInfoMessage).not.toBeCalled();
+    expect(nativeUI.displayErrorMessage).not.toBeCalled();
   });
 
-  it("displays an error message if fs encounters an error", () => {
+  it("displays an error message if writeToFile encounters an error", async () => {
+    expect.assertions(1);
+
     const fileName = "foo.txt";
     const content = "foobar";
-    nativeUI.getFileNameFromUser = () => {
-      return fileName;
-    };
 
-    saveToFile(content);
+    nativeUI.getFileNameFromUser = jest.fn(() => {
+      return Promise.resolve(fileName);
+    });
 
-    const fsErrorCallback = fs.writeFile.mock.calls[0][2];
-    fsErrorCallback(new Error());
+    nativeUI.writeToFile = jest.fn(() => {
+      return Promise.reject(new Error());
+    });
+
+    await saveToFile(content);
 
     expect(nativeUI.displayErrorMessage).toBeCalled();
   });
