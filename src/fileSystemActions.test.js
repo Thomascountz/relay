@@ -27,7 +27,6 @@ describe("saveToFile", () => {
   });
 
   it("does not write a file if fileName is rejected", async () => {
-    expect.assertions(2);
     const content = "foobar";
 
     nativeUI.getFileNameFromUser = jest.fn(() => {
@@ -37,6 +36,7 @@ describe("saveToFile", () => {
     await saveToFile(content);
 
     expect(nativeUI.writeToFile).not.toBeCalled();
+    expect(nativeUI.displayInfoMessage).not.toBeCalled();
     expect(nativeUI.displayErrorMessage).not.toBeCalled();
   });
 

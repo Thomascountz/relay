@@ -4,24 +4,29 @@ const saveToFile = content => {
   return nativeUI
     .getFileNameFromUser()
     .then(
-      fileName => {
-        return nativeUI.writeToFile(fileName, content);
+      response => {
+        return nativeUI.writeToFile(response, content);
       },
       () => {
-        return;
+        return Promise.reject();
       }
     )
-    .then(() => {
-      return nativeUI.displayInfoMessage(
-        "File Saved",
-        "Your document has been saved"
-      );
-    })
-    .catch(error => {
-      return nativeUI.displayErrorMessage(
-        "An error has ocurred",
-        error.message
-      );
+    .then(
+      () => {
+        return nativeUI.displayInfoMessage(
+          "File Saved",
+          "Your document has been saved"
+        );
+      },
+      error => {
+        return nativeUI.displayErrorMessage(
+          "An error has ocurred",
+          error.message
+        );
+      }
+    )
+    .catch(() => {
+      // noop
     });
 };
 
