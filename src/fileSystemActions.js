@@ -2,7 +2,7 @@ const nativeUI = require("./nativeUI");
 
 const saveToFile = content => {
   return nativeUI
-    .getFileNameFromUser()
+    .getFileNameToSaveFromUser()
     .then(
       response => {
         return nativeUI.writeToFile(response, content);

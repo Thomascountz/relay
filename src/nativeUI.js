@@ -15,7 +15,7 @@ const promptUserToOpenFileContents = () => {
   });
 };
 
-const getFileNameFromUser = () => {
+const getFileNameToSaveFromUser = () => {
   return new Promise((resolve, reject) => {
     let fileName = dialog.showSaveDialog({
       filters: [
@@ -79,7 +79,7 @@ const readFromFile = file => {
 module.exports = {
   promptUserToSaveContentToFile: promptUserToSaveContentToFile,
   promptUserToOpenFileContents: promptUserToOpenFileContents,
-  getFileNameFromUser: getFileNameFromUser,
+  getFileNameToSaveFromUser: getFileNameToSaveFromUser,
   getFileNameToOpenFromUser: getFileNameToOpenFromUser,
   displayErrorMessage: displayErrorMessage,
   displayInfoMessage: displayInfoMessage,

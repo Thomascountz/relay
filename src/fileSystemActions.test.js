@@ -13,7 +13,7 @@ describe("fileSystemActions", () => {
       const fileName = "foo.txt";
       const content = "foobar";
 
-      nativeUI.getFileNameFromUser = jest.fn(() => {
+      nativeUI.getFileNameToSaveFromUser = jest.fn(() => {
         return Promise.resolve(fileName);
       });
 
@@ -29,7 +29,7 @@ describe("fileSystemActions", () => {
     it("does not write a file if fileName is rejected", async () => {
       const content = "foobar";
 
-      nativeUI.getFileNameFromUser = jest.fn(() => {
+      nativeUI.getFileNameToSaveFromUser = jest.fn(() => {
         return Promise.reject(new Error());
       });
 
@@ -46,7 +46,7 @@ describe("fileSystemActions", () => {
       const fileName = "foo.txt";
       const content = "foobar";
 
-      nativeUI.getFileNameFromUser = jest.fn(() => {
+      nativeUI.getFileNameToSaveFromUser = jest.fn(() => {
         return Promise.resolve(fileName);
       });
 

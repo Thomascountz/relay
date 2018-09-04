@@ -30,14 +30,16 @@ describe("Native UI", () => {
     });
   });
 
-  describe("getFileNameFromUser", () => {
+  describe("getFileNameToSaveFromUser", () => {
     it("returns a resolved promise with the fileName the user entered", () => {
       const fileName = "test.txt";
       electron.dialog.showSaveDialog = jest.fn(() => {
         return fileName;
       });
 
-      return expect(nativeUI.getFileNameFromUser()).resolves.toEqual(fileName);
+      return expect(nativeUI.getFileNameToSaveFromUser()).resolves.toEqual(
+        fileName
+      );
     });
 
     it("returns a rejected promise when the user doesn't enter a fileName", () => {
@@ -45,9 +47,9 @@ describe("Native UI", () => {
         return undefined;
       });
 
-      return expect(nativeUI.getFileNameFromUser()).rejects.toBeInstanceOf(
-        Error
-      );
+      return expect(
+        nativeUI.getFileNameToSaveFromUser()
+      ).rejects.toBeInstanceOf(Error);
     });
   });
 
