@@ -67,8 +67,7 @@ const writeToFile = (file, content) => {
 
 const readFromFile = file => {
   const readFile = util.promisify(fs.readFile);
-  const result = readFile(file);
-  return result;
+  return readFile(file);
 };
 
 module.exports = {
