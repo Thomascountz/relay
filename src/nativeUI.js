@@ -15,16 +15,18 @@ const promptUserToOpenFileContents = () => {
   });
 };
 
+const fileSystemPromptConfig = {
+  filters: [
+    {
+      name: "Text",
+      extensions: ["txt"]
+    }
+  ]
+};
+
 const getFileNameToSaveFromUser = () => {
   return new Promise((resolve, reject) => {
-    let fileName = dialog.showSaveDialog({
-      filters: [
-        {
-          name: "Text",
-          extensions: ["txt"]
-        }
-      ]
-    });
+    let fileName = dialog.showSaveDialog(fileSystemPromptConfig);
 
     if (fileName === undefined) {
       reject(new Error());
@@ -36,14 +38,7 @@ const getFileNameToSaveFromUser = () => {
 
 const getFileNameToOpenFromUser = () => {
   return new Promise((resolve, reject) => {
-    let fileNames = dialog.showOpenDialog({
-      filters: [
-        {
-          name: "Text",
-          extensions: ["txt"]
-        }
-      ]
-    });
+    let fileNames = dialog.showOpenDialog(fileSystemPromptConfig);
 
     if (fileNames[0] === undefined) {
       reject(new Error());
