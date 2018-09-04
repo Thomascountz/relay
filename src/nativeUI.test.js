@@ -18,14 +18,28 @@ describe("Native UI", () => {
     });
   });
 
-  describe("getFileNameFromUser", () => {
+  describe("promptUserToOpenFileContents", () => {
+    it("sends an ipcRenderer message", () => {
+      nativeUI.promptUserToOpenFileContents();
+      expect(electron.ipcRenderer.send).toBeCalledWith("openContentsFromFile");
+    });
+
+    it("returns a promise", () => {
+      const result = nativeUI.promptUserToOpenFileContents();
+      expect(result).toBeInstanceOf(Promise);
+    });
+  });
+
+  describe("getFileNameToSaveFromUser", () => {
     it("returns a resolved promise with the fileName the user entered", () => {
       const fileName = "test.txt";
       electron.dialog.showSaveDialog = jest.fn(() => {
         return fileName;
       });
 
-      return expect(nativeUI.getFileNameFromUser()).resolves.toEqual(fileName);
+      return expect(nativeUI.getFileNameToSaveFromUser()).resolves.toEqual(
+        fileName
+      );
     });
 
     it("returns a rejected promise when the user doesn't enter a fileName", () => {
@@ -33,9 +47,32 @@ describe("Native UI", () => {
         return undefined;
       });
 
-      return expect(nativeUI.getFileNameFromUser()).rejects.toBeInstanceOf(
-        Error
+      return expect(
+        nativeUI.getFileNameToSaveFromUser()
+      ).rejects.toBeInstanceOf(Error);
+    });
+  });
+
+  describe("getFileNameToOpenFromUser", () => {
+    it("returns a resolved promise with the fileName the user selected", () => {
+      const fileName = "test.txt";
+      electron.dialog.showOpenDialog = jest.fn(() => {
+        return [fileName];
+      });
+
+      return expect(nativeUI.getFileNameToOpenFromUser()).resolves.toEqual(
+        fileName
       );
+    });
+
+    it("returns a rejected promise when the user doesn't select a fileName", () => {
+      electron.dialog.showOpenDialog = jest.fn(() => {
+        return [undefined];
+      });
+
+      return expect(
+        nativeUI.getFileNameToOpenFromUser()
+      ).rejects.toBeInstanceOf(Error);
     });
   });
 
@@ -76,6 +113,16 @@ describe("Native UI", () => {
       nativeUI.writeToFile(file, content);
 
       expect(fs.writeFile).toBeCalledWith(file, content, expect.any(Function));
+    });
+  });
+
+  describe("readFromFile", () => {
+    it("makes a call to fs.readFile", () => {
+      const file = "test.txt";
+
+      nativeUI.readFromFile(file);
+
+      expect(fs.readFile).toBeCalledWith(file, expect.any(Function));
     });
   });
 });

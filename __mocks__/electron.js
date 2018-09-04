@@ -1,5 +1,6 @@
 const ipcRenderer = {
-  send: jest.fn()
+  send: jest.fn(),
+  on: jest.fn()
 };
 
 const dialog = {

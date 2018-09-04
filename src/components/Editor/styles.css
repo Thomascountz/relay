@@ -17,20 +17,34 @@
   font-size: 24px;
 }
 
-.saveButton {
-  border: 2px solid rgb(102, 187, 226);
-  background-color: white;
-  color: grey;
+.button {
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
   font-size: 16px;
   outline: none;
   float: right;
-  margin-top: 2px;
+  margin: 2px 0 0 2px;
+}
+
+.saveButton {
+  background-color: white;
+  color: grey;
+  border: 2px solid rgb(102, 187, 226);
 }
 
 .saveButton:hover {
   background-color: rgb(102, 187, 226);
+  color: white;
+}
+
+.openButton {
+  background-color: white;
+  color: grey;
+  border: 2px solid rgb(226, 102, 102);
+}
+
+.openButton:hover {
+  background-color: rgb(226, 102, 102);
   color: white;
 }

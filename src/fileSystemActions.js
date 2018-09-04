@@ -2,7 +2,7 @@ const nativeUI = require("./nativeUI");
 
 const saveToFile = content => {
   return nativeUI
-    .getFileNameFromUser()
+    .getFileNameToSaveFromUser()
     .then(
       response => {
         return nativeUI.writeToFile(response, content);
@@ -30,6 +30,29 @@ const saveToFile = content => {
     });
 };
 
+const openFromFile = () => {
+  return nativeUI
+    .getFileNameToOpenFromUser()
+    .then(
+      fileName => {
+        return nativeUI.readFromFile(fileName);
+      },
+      () => {
+        return Promise.reject();
+      }
+    )
+    .then(null, error => {
+      return nativeUI.displayErrorMessage(
+        "An error has occured",
+        error.message
+      );
+    })
+    .catch(() => {
+      // noop
+    });
+};
+
 module.exports = {
-  saveToFile: saveToFile
+  saveToFile: saveToFile,
+  openFromFile: openFromFile
 };
