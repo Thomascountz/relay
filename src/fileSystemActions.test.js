@@ -9,7 +9,6 @@ describe("fileSystemActions", () => {
   });
   describe("saveToFile", () => {
     it("saves content to a file", async () => {
-      expect.assertions(1);
       const fileName = "foo.txt";
       const content = "foobar";
 
@@ -41,8 +40,6 @@ describe("fileSystemActions", () => {
     });
 
     it("displays an error message if writeToFile encounters an error", async () => {
-      expect.assertions(1);
-
       const fileName = "foo.txt";
       const content = "foobar";
 
