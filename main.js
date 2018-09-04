@@ -1,7 +1,7 @@
 const electron = require("electron");
 const { app, BrowserWindow, Menu, ipcMain } = electron;
 const { template } = require("./src/context_menu");
-const { saveToFile } = require("./src/fileSystemActions");
+const { saveToFile, openFromFile } = require("./src/fileSystemActions");
 
 // Use electron-reload in development to reload app on file change
 if (
@@ -38,6 +38,12 @@ function createWindow() {
 
   ipcMain.on("saveValueToFile", (event, content) => {
     saveToFile(content);
+  });
+
+  ipcMain.on("openContentsFromFile", (event, args) => {
+    openFromFile().then(fileContents => {
+      event.sender.send("fileContents", fileContents);
+    });
   });
 }
 

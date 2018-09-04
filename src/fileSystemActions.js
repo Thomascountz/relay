@@ -30,6 +30,23 @@ const saveToFile = content => {
     });
 };
 
+const openFromFile = () => {
+  return nativeUI
+    .getFileNameToOpenFromUser()
+    .then(
+      fileName => {
+        return nativeUI.readFromFile(fileName);
+      },
+      () => {
+        return Promise.reject();
+      }
+    )
+    .catch(() => {
+      // noop
+    });
+};
+
 module.exports = {
-  saveToFile: saveToFile
+  saveToFile: saveToFile,
+  openFromFile: openFromFile
 };

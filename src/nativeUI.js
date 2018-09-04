@@ -7,10 +7,10 @@ const promptUserToSaveContentToFile = contents => {
 };
 
 const promptUserToOpenFileContents = () => {
-  return new Promise(resolve => {
-    ipcRenderer.send("async");
-    ipcRenderer.on("reply", (event, result) => {
-      resolve(result);
+  return new Promise((resolve, reject) => {
+    ipcRenderer.send("openContentsFromFile");
+    ipcRenderer.on("fileContents", (event, fileContents) => {
+      resolve(fileContents);
     });
   });
 };
@@ -34,6 +34,25 @@ const getFileNameFromUser = () => {
   });
 };
 
+const getFileNameToOpenFromUser = () => {
+  return new Promise((resolve, reject) => {
+    let fileNames = dialog.showOpenDialog({
+      filters: [
+        {
+          name: "Text",
+          extensions: ["txt"]
+        }
+      ]
+    });
+
+    if (fileNames[0] === undefined) {
+      reject(new Error());
+    } else {
+      resolve(fileNames[0]);
+    }
+  });
+};
+
 const displayErrorMessage = (errorTitle, errorMessage) => {
   dialog.showErrorBox(errorTitle, errorMessage);
 };
@@ -51,11 +70,19 @@ const writeToFile = (file, content) => {
   return writeFile(file, content);
 };
 
+const readFromFile = file => {
+  const readFile = util.promisify(fs.readFile);
+  const result = readFile(file);
+  return result;
+};
+
 module.exports = {
   promptUserToSaveContentToFile: promptUserToSaveContentToFile,
   promptUserToOpenFileContents: promptUserToOpenFileContents,
   getFileNameFromUser: getFileNameFromUser,
+  getFileNameToOpenFromUser: getFileNameToOpenFromUser,
   displayErrorMessage: displayErrorMessage,
   displayInfoMessage: displayInfoMessage,
-  writeToFile: writeToFile
+  writeToFile: writeToFile,
+  readFromFile: readFromFile
 };

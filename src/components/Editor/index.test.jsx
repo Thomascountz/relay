@@ -44,16 +44,16 @@ describe("<Editor />", () => {
     );
   });
 
-  it("updates the value to a text file's contents when open button is pressed", () => {
+  it("updates the value to a text file's contents when open button is pressed", async () => {
     const wrapper = shallow(<Editor />);
     const openButton = wrapper.find(".openButton");
     const fileContents = "Hello, World!";
 
     nativeUI.promptUserToOpenFileContents = jest.fn(() => {
-      return fileContents;
+      return Promise.resolve(fileContents);
     });
 
-    openButton.simulate("click");
+    await openButton.simulate("click");
 
     expect(nativeUI.promptUserToOpenFileContents).toBeCalled();
     expect(wrapper.state("value")).toEqual(fileContents);

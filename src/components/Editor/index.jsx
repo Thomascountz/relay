@@ -17,7 +17,9 @@ class Editor extends Component {
   };
 
   handleOpenClick = () => {
-    this.setState({ value: nativeUI.promptUserToOpenFileContents() });
+    nativeUI.promptUserToOpenFileContents().then(fileContents => {
+      this.setState({ value: fileContents });
+    });
   };
 
   render() {
