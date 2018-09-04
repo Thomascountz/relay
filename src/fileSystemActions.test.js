@@ -86,5 +86,21 @@ describe("fileSystemActions", () => {
 
       expect(nativeUI.readFromFile).not.toBeCalled();
     });
+
+    it("displays an error message if readFromFile encounters an error", async () => {
+      const fileName = "foo.txt";
+
+      nativeUI.getFileNameToOpenFromUser = jest.fn(() => {
+        return Promise.resolve(fileName);
+      });
+
+      nativeUI.readFromFile = jest.fn(() => {
+        return Promise.reject(new Error());
+      });
+
+      await openFromFile();
+
+      expect(nativeUI.displayErrorMessage).toBeCalled();
+    });
   });
 });

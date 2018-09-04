@@ -41,6 +41,12 @@ const openFromFile = () => {
         return Promise.reject();
       }
     )
+    .then(null, error => {
+      return nativeUI.displayErrorMessage(
+        "An error has occured",
+        error.message
+      );
+    })
     .catch(() => {
       // noop
     });
