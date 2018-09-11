@@ -7,6 +7,9 @@ Enzyme.configure({ adapter: new Adapter() });
 import nativeUI from "../../nativeUI";
 jest.mock("../../nativeUI");
 
+import sentiment from "../../sentiment";
+jest.mock("../../sentiment");
+
 import Editor from "./index";
 
 describe("<Editor />", () => {
@@ -57,5 +60,20 @@ describe("<Editor />", () => {
 
     expect(nativeUI.promptUserToOpenFileContents).toBeCalled();
     expect(wrapper.state("value")).toEqual(fileContents);
+  });
+
+  it("analyzes the document inside the textarea", async () => {
+    const wrapper = shallow(<Editor />);
+    const analyzeButton = wrapper.find(".analyzeButton");
+    const textareaContent = "Hello World!";
+    wrapper.setState({ value: textareaContent });
+
+    sentiment.analyze = jest.fn(() => {
+      return Promise.resolve("foo");
+    });
+
+    await analyzeButton.simulate("click");
+
+    expect(sentiment.analyze).toBeCalledWith(textareaContent);
   });
 });

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import nativeUI from "../../nativeUI";
 import { hot } from "react-hot-loader";
 import "./styles.css";
+import sentiment from "../../sentiment";
 
 class Editor extends Component {
   state = {
@@ -22,6 +23,10 @@ class Editor extends Component {
     });
   };
 
+  handleAnalyzeClick = () => {
+    sentiment.analyze(this.state.value);
+  };
+
   render() {
     return (
       <div className="container">
@@ -33,6 +38,12 @@ class Editor extends Component {
           }}
           value={this.state.value}
         />
+        <button
+          className="button analyzeButton"
+          onClick={this.handleAnalyzeClick}
+        >
+          Analyze
+        </button>
         <button className="button saveButton" onClick={this.handleSaveClick}>
           Save
         </button>
