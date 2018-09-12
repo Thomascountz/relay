@@ -24,9 +24,14 @@ class Editor extends Component {
   };
 
   handleAnalyzeClick = () => {
-    sentiment.analyze(this.state.value).then(results => {
-      console.log(results.document_tone.tones);
-    });
+    sentiment
+      .analyze(this.state.value)
+      .then(results => {
+        console.log(results.document_tone.tones);
+      })
+      .catch(() => {
+        // noop
+      });
   };
 
   render() {

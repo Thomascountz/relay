@@ -69,7 +69,9 @@ describe("<Editor />", () => {
     wrapper.setState({ value: textareaContent });
 
     sentiment.analyze = jest.fn(() => {
-      return Promise.resolve("foo");
+      return Promise.resolve({
+        document_tone: { tones: [] }
+      });
     });
 
     await analyzeButton.simulate("click");
