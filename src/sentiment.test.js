@@ -1,4 +1,8 @@
 import sentiment from "./sentiment";
+
+import nativeUI from "./nativeUI";
+jest.mock("./nativeUI");
+
 import axios from "axios";
 jest.mock("axios");
 
@@ -18,7 +22,7 @@ describe("analyze", () => {
     );
   });
 
-  it("returns the result of successful requests", async () => {
+  it("returns the result of successful requests", () => {
     const text = "lorem ipsum dolor sit amet";
     const expectedResult = "Result";
 
@@ -26,22 +30,59 @@ describe("analyze", () => {
       return Promise.resolve({ data: expectedResult });
     });
 
-    const result = await sentiment.analyze(text);
+    const result = sentiment.analyze(text);
 
-    expect(result).toEqual(expectedResult);
+    return expect(result).resolves.toEqual(expectedResult);
   });
 
-  it("sends reports errors to the console for unsuccessful requests", async () => {
+  xit("renders an error message to the user if there is an error with axios", async () => {
     const text = "lorem ipsum dolor sit amet";
 
-    console.log = jest.fn();
+    nativeUI.displayErrorMessage = jest.fn();
 
     axios.get = jest.fn(() => {
-      return Promise.reject(new Error());
+      return Promise.reject({ message: "Client Error" });
     });
 
     await sentiment.analyze(text);
 
-    expect(console.log).toBeCalledWith(new Error());
+    expect(nativeUI.displayErrorMessage).toBeCalledWith(
+      "Client Error",
+      "Client Error"
+    );
+  });
+
+  xit("renders an error message to the user if there is an error with the request", async () => {
+    const text = "lorem ipsum dolor sit amet";
+
+    nativeUI.displayErrorMessage = jest.fn();
+
+    axios.get = jest.fn(() => {
+      return Promise.reject({ request: "Request Error" });
+    });
+
+    await sentiment.analyze(text);
+
+    expect(nativeUI.displayErrorMessage).toBeCalledWith(
+      "Request Error",
+      "Request Error"
+    );
+  });
+
+  xit("renders an error message to the user if there is an error with the response", async () => {
+    const text = "lorem ipsum dolor sit amet";
+
+    nativeUI.displayErrorMessage = jest.fn();
+
+    axios.get = jest.fn(() => {
+      return Promise.reject({ response: "API Error" });
+    });
+
+    await sentiment.analyze(text);
+
+    expect(nativeUI.displayErrorMessage).toBeCalledWith(
+      "API Error",
+      "API Error"
+    );
   });
 });
