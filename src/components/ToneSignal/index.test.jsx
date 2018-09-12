@@ -10,16 +10,27 @@ it("renders a toneSignal with a given name", () => {
   const name = "Joy";
   const wrapper = shallow(<ToneSignal name={name} />);
 
-  const toneSignalName = wrapper.find(".name");
+  const toneSignalName = wrapper.find(".tone");
 
-  expect(toneSignalName.text()).toEqual(name);
+  expect(toneSignalName.text()).toContain(name);
 });
 
-it("renders adds specific class to dot for a given tone name", () => {
+it("renders a toneSignal with a given score", () => {
+  const name = "Joy";
+  const score = "0.601046";
+  const renderedScore = "6.0";
+  const wrapper = shallow(<ToneSignal name={name} score={score} />);
+
+  const toneSignalName = wrapper.find(".tone");
+
+  expect(toneSignalName.text()).toContain(renderedScore);
+});
+
+it("adds specific class to dot for a given tone name", () => {
   const name = "Joy";
   const wrapper = shallow(<ToneSignal name={name} />);
 
   const toneSignaldot = wrapper.find(".dot");
 
-  expect(toneSignaldot.hasClass("joy-tone")).toEqual(true);
+  expect(toneSignaldot.hasClass("joy-dot")).toEqual(true);
 });
