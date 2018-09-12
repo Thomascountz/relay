@@ -23,7 +23,7 @@ function createWindow() {
   win.loadFile("./public/index.html");
 
   // Open the DevTools.
-  // win.webContents.openDevTools();
+  win.webContents.openDevTools();
 
   // Create menu
   Menu.setApplicationMenu(Menu.buildFromTemplate(template));
