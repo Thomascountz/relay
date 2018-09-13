@@ -4,10 +4,12 @@ import "./styles.css";
 
 const ToneSignal = props => {
   return (
-    <h2 className="tone">
-      <span className={"dot " + getClassFor(props.name)} />
-      {renderName(props.name)} {renderScore(props.score)}
-    </h2>
+    <div className="tone-signal">
+      <div className="tone">
+        <span className={"dot " + getClassFor(props.name)} />
+        {renderName(props.name)} {renderScore(props.score)}
+      </div>
+    </div>
   );
 };
 
@@ -20,7 +22,11 @@ const renderName = name => {
 };
 
 const renderScore = score => {
-  return (parseFloat(score) * 10).toFixed(1).toString();
+  if (score === undefined) {
+    return 0;
+  } else {
+    return (parseFloat(score) * 10).toFixed(1).toString();
+  }
 };
 
 export default hot(module)(ToneSignal);

@@ -3,11 +3,13 @@ import { hot } from "react-hot-loader";
 import "./styles.css";
 
 import Editor from "../Editor/index";
+import ToneBar from "../ToneBar";
 
 const App = () => {
   return (
-    <div className="app">
-      <h1> Hello, Relay! </h1>
+    <div className="app container">
+      <h1 className="title"> Hello, Relay! </h1>
+      <ToneBar />
       <Editor />
     </div>
   );

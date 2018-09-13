@@ -16,6 +16,16 @@ it("renders a toneSignal with a given name", () => {
   expect(toneSignalName.text()).toContain(renderedName);
 });
 
+it("renders a toneSignal with a default score of zero", () => {
+  const name = "joy";
+  const renderedScore = "0";
+  const wrapper = shallow(<ToneSignal name={name} />);
+
+  const toneSignalName = wrapper.find(".tone");
+
+  expect(toneSignalName.text()).toContain(renderedScore);
+});
+
 it("renders a toneSignal with a given score", () => {
   const name = "joy";
   const score = "0.601046";

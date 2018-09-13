@@ -1,0 +1,10 @@
+.tone-bar {
+  float: right;
+  width: 100%;
+  padding: 20px 0;
+  background-color: #e8e8e8;
+  border-top: 1px solid grey;
+  border-right: 1px solid grey;
+  border-left: 1px solid grey;
+  box-sizing: border-box;
+}
