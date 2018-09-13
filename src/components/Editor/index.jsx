@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import nativeUI from "../../nativeUI";
 import { hot } from "react-hot-loader";
 import "./styles.css";
-import sentiment from "../../sentiment";
 
 class Editor extends Component {
   state = {
@@ -23,17 +22,6 @@ class Editor extends Component {
     });
   };
 
-  handleAnalyzeClick = () => {
-    sentiment
-      .analyze(this.state.value)
-      .then(results => {
-        console.log(results.document_tone.tones);
-      })
-      .catch(() => {
-        // noop
-      });
-  };
-
   render() {
     return (
       <div>
@@ -47,7 +35,9 @@ class Editor extends Component {
         />
         <button
           className="button analyzeButton"
-          onClick={this.handleAnalyzeClick}
+          onClick={() => {
+            this.props.handleAnalyzeClick(this.state.value);
+          }}
         >
           Analyze
         </button>

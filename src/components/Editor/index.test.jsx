@@ -62,20 +62,15 @@ describe("<Editor />", () => {
     expect(wrapper.state("value")).toEqual(fileContents);
   });
 
-  it("analyzes the document inside the textarea", async () => {
-    const wrapper = shallow(<Editor />);
+  it("analyzes the document inside the textarea", () => {
+    const handleAnalyzeClick = jest.fn();
+    const wrapper = shallow(<Editor handleAnalyzeClick={handleAnalyzeClick} />);
     const analyzeButton = wrapper.find(".analyzeButton");
     const textareaContent = "Hello World!";
     wrapper.setState({ value: textareaContent });
 
-    sentiment.analyze = jest.fn(() => {
-      return Promise.resolve({
-        document_tone: { tones: [] }
-      });
-    });
+    analyzeButton.simulate("click");
 
-    await analyzeButton.simulate("click");
-
-    expect(sentiment.analyze).toBeCalledWith(textareaContent);
+    expect(handleAnalyzeClick).toBeCalledWith(textareaContent);
   });
 });
