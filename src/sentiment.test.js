@@ -1,8 +1,5 @@
 import sentiment from "./sentiment";
 
-import nativeUI from "./nativeUI";
-jest.mock("./nativeUI");
-
 import axios from "axios";
 jest.mock("axios");
 

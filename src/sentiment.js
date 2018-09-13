@@ -1,5 +1,4 @@
 const axios = require("axios");
-const nativeUI = require("./nativeUI");
 
 const SENTIMENT_ANALYSIS_ENDPOINT =
   "https://frozen-hollows-25947.herokuapp.com/sentiment/analyze";
