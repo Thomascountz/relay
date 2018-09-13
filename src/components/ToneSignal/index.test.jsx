@@ -28,13 +28,12 @@ it("renders a toneSignal with a default score of zero", () => {
 
 it("renders a toneSignal with a given score", () => {
   const name = "joy";
-  const score = "0.601046";
-  const renderedScore = "6.0";
+  const score = "6.0";
   const wrapper = shallow(<ToneSignal name={name} score={score} />);
 
   const toneSignalName = wrapper.find(".tone");
 
-  expect(toneSignalName.text()).toContain(renderedScore);
+  expect(toneSignalName.text()).toContain(score);
 });
 
 it("adds specific class to dot for a given tone name", () => {

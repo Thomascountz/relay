@@ -6,14 +6,14 @@ const ToneSignal = props => {
   return (
     <div className="tone-signal">
       <div className="tone">
-        <span className={"dot " + getClassFor(props.name)} />
+        <span className={"dot " + getDotClassFor(props.name)} />
         {renderName(props.name)} {renderScore(props.score)}
       </div>
     </div>
   );
 };
 
-const getClassFor = name => {
+const getDotClassFor = name => {
   return (name + "-dot").toLowerCase();
 };
 
@@ -22,11 +22,7 @@ const renderName = name => {
 };
 
 const renderScore = score => {
-  if (score === undefined) {
-    return 0;
-  } else {
-    return (parseFloat(score) * 10).toFixed(1).toString();
-  }
+  return score || "0";
 };
 
 export default hot(module)(ToneSignal);
