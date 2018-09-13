@@ -6,13 +6,17 @@ const ToneSignal = props => {
   return (
     <h2 className="tone">
       <span className={"dot " + getClassFor(props.name)} />
-      {props.name} {renderScore(props.score)}
+      {renderName(props.name)} {renderScore(props.score)}
     </h2>
   );
 };
 
 const getClassFor = name => {
   return (name + "-dot").toLowerCase();
+};
+
+const renderName = name => {
+  return name.charAt(0).toUpperCase() + name.slice(1);
 };
 
 const renderScore = score => {
