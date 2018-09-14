@@ -5,6 +5,7 @@ Native text editor that reports NPL sentiment analysis
 
 [![Build Status](https://semaphoreci.com/api/v1/thomascountz1/relay/branches/master/badge.svg)](https://semaphoreci.com/thomascountz1/relay)
 
+![Screen Shot 2018-09-14 at 2.14.59 PM.png](https://waffleio-direct-uploads-production.s3.amazonaws.com/uploads/58cc2389b8f05b2000fc6b5c/125516c66e82c728ace21e0d46db978826878de9bce1b057e40fa0c5710b772a6455f76b7191a37af1132f4f5a565ecc3c4a4356bcbbd671f3e57862804e0ebfd66b0c72903445f9b98a16be01ba21d91dd4e3ba834ad2f42f67b6d5db1063474f4dcbed5727a19f41c95df54de8495dad1a3460e4712431.png)
 
 ## Stack
 
