@@ -19,6 +19,7 @@
   "email": "tcountz@8thlight.com",
   "license": "MIT",
   "devDependencies": {
+    "axios": "^0.18.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-jest": "^23.4.2",

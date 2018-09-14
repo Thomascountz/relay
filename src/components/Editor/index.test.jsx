@@ -58,4 +58,18 @@ describe("<Editor />", () => {
     expect(nativeUI.promptUserToOpenFileContents).toBeCalled();
     expect(wrapper.state("value")).toEqual(fileContents);
   });
+
+  it("analyzes the document inside the textarea", () => {
+    const handleAnalyzeClick = jest.fn();
+    const wrapper = shallow(<Editor handleAnalyzeClick={handleAnalyzeClick} />);
+
+    const analyzeButton = wrapper.find(".analyzeButton");
+
+    const textareaContent = "Hello World!";
+    wrapper.setState({ value: textareaContent });
+
+    analyzeButton.simulate("click");
+
+    expect(handleAnalyzeClick).toBeCalledWith(textareaContent);
+  });
 });

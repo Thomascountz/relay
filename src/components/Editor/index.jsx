@@ -24,7 +24,7 @@ class Editor extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div>
         <textarea
           autoFocus="true"
           className="editorTextArea"
@@ -33,6 +33,14 @@ class Editor extends Component {
           }}
           value={this.state.value}
         />
+        <button
+          className="button analyzeButton"
+          onClick={() => {
+            this.props.handleAnalyzeClick(this.state.value);
+          }}
+        >
+          Analyze
+        </button>
         <button className="button saveButton" onClick={this.handleSaveClick}>
           Save
         </button>
