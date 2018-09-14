@@ -62,7 +62,9 @@ describe("<Editor />", () => {
   it("analyzes the document inside the textarea", () => {
     const handleAnalyzeClick = jest.fn();
     const wrapper = shallow(<Editor handleAnalyzeClick={handleAnalyzeClick} />);
+
     const analyzeButton = wrapper.find(".analyzeButton");
+
     const textareaContent = "Hello World!";
     wrapper.setState({ value: textareaContent });
 
