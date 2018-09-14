@@ -7,9 +7,6 @@ Enzyme.configure({ adapter: new Adapter() });
 import nativeUI from "../../nativeUI";
 jest.mock("../../nativeUI");
 
-import sentiment from "../../sentiment";
-jest.mock("../../sentiment");
-
 import Editor from "./index";
 
 describe("<Editor />", () => {
