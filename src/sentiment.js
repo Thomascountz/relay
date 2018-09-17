@@ -1,7 +1,7 @@
 const axios = require("axios");
 
 const SENTIMENT_ANALYSIS_ENDPOINT =
-  "https://frozen-hollows-25947.herokuapp.com/sentiment/analyze";
+  "https://relay-service.herokuapp.com/sentiment/analyze";
 
 const analyze = text => {
   return axios
