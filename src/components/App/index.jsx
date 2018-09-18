@@ -15,7 +15,6 @@ class App extends React.Component {
   render() {
     return (
       <div className="app container">
-        <h1 className="title"> Hello, Relay! </h1>
         <ToneBar tones={this.state.documentTones} />
         <Editor handleAnalyzeClick={this.handleAnalyzeClick.bind(this)} />
       </div>
