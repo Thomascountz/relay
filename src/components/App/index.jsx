@@ -17,7 +17,10 @@ class App extends React.Component {
     return (
       <div className="app container">
         <ToneBar tones={this.state.documentTones} />
-        <Editor handleAnalyzeClick={this.handleAnalyzeClick.bind(this)} />
+        <Editor
+          handleAnalyzeClick={this.handleAnalyzeClick.bind(this)}
+          sentencesTones={this.state.sentencesTones}
+        />
       </div>
     );
   }
@@ -25,8 +28,10 @@ class App extends React.Component {
   handleAnalyzeClick(text) {
     this.getTones(text)
       .then(tones => {
-        this.setState({ documentTones: tones.document_tone.tones });
-        this.setState({ sentencesTones: tones.sentences_tone });
+        this.setState({
+          documentTones: tones.document_tone.tones,
+          sentencesTones: tones.sentences_tone
+        });
       })
       .catch(() => {
         // noop

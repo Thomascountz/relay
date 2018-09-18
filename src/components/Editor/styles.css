@@ -52,3 +52,31 @@
   background-color: gold;
   color: white;
 }
+
+.analytical {
+  background-color: rgba(65, 105, 225, 0.5);
+}
+
+.anger {
+  background-color: rgba(178, 34, 34, 0.5);
+}
+
+.confident {
+  background-color: rgba(124, 104, 238, 0.5);
+}
+
+.fear {
+  background-color: rgba(34, 139, 34, 0.5);
+}
+
+.joy {
+  background-color: rgba(255, 217, 0, 0.5);
+}
+
+.sadness {
+  background-color: rgba(25, 25, 112, 0.5);
+}
+
+.tentative {
+  background-color: rgba(0, 128, 128, 0.5);
+}
