@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import nativeUI from "../../nativeUI";
+import ContentEditable from "react-contenteditable";
 import { hot } from "react-hot-loader";
 import "./styles.css";
 
@@ -9,7 +10,7 @@ class Editor extends Component {
   };
 
   handleChange = event => {
-    this.setState({ value: event.currentTarget.value });
+    this.setState({ value: event.target.value });
   };
 
   handleSaveClick = () => {
@@ -39,6 +40,14 @@ class Editor extends Component {
         <button className="button openButton" onClick={this.handleOpenClick}>
           Open
         </button>
+        <ContentEditable
+          html={this.state.value}
+          autoFocus="true"
+          className="editorTextArea"
+          onChange={e => {
+            this.handleChange(e);
+          }}
+        />
       </div>
     );
   }
