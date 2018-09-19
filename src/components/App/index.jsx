@@ -9,7 +9,8 @@ import ToneBar from "../ToneBar";
 
 class App extends React.Component {
   state = {
-    documentTones: []
+    documentTones: [],
+    sentencesTones: []
   };
 
   render() {
@@ -22,19 +23,15 @@ class App extends React.Component {
   }
 
   handleAnalyzeClick(text) {
-    this.getDocumentTones(text)
-      .then(tones => {
-        this.setState({ documentTones: tones });
-      })
-      .catch(() => {
-        // noop
-      });
-  }
-
-  getDocumentTones(text) {
     return Sentiment.analyze(text)
-      .then(results => {
-        return results.document_tone.tones;
+      .then(result => {
+        return result;
+      })
+      .then(result => {
+        this.setState({
+          documentTones: result.document_tone.tones,
+          sentencesTones: result.sentences_tones
+        });
       })
       .catch(() => {
         // noop
