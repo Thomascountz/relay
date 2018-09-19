@@ -25,14 +25,6 @@ class Editor extends Component {
   render() {
     return (
       <div>
-        <textarea
-          autoFocus="true"
-          className="editorTextArea"
-          onChange={e => {
-            this.handleChange(e);
-          }}
-          value={this.state.value}
-        />
         <button
           className="button analyzeButton"
           onClick={() => {
@@ -47,6 +39,14 @@ class Editor extends Component {
         <button className="button openButton" onClick={this.handleOpenClick}>
           Open
         </button>
+        <textarea
+          autoFocus="true"
+          className="editorTextArea"
+          onChange={e => {
+            this.handleChange(e);
+          }}
+          value={this.state.value}
+        />
       </div>
     );
   }
