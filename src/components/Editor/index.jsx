@@ -14,6 +14,7 @@ class Editor extends Component {
   };
 
   componentWillReceiveProps({ sentencesTones }) {
+    console.log(sentencesTones);
     let newValue = this.state.html;
     if (sentencesTones !== undefined) {
       for (let sentenceTone of sentencesTones) {
@@ -23,8 +24,9 @@ class Editor extends Component {
           }</span>`;
           newValue = newValue.replace(sentenceTone.text, annotated);
         }
-        this.setState({ html: newValue });
       }
+      this.setState({ html: newValue });
+      console.log(newValue);
     }
   }
 
@@ -33,7 +35,7 @@ class Editor extends Component {
   };
 
   handleChange = event => {
-    this.setState({ html: this.clearAnnotatedText(event.target.html) });
+    this.setState({ html: this.clearAnnotatedText(event.target.value) });
   };
 
   handleSaveClick = () => {
@@ -53,10 +55,7 @@ class Editor extends Component {
           className="button analyzeButton"
           onClick={() => {
             this.props.handleAnalyzeClick(
-              this.state.html
-                .replace(/<.*?>/g, "")
-                .replace(/[.?!,]/g, "$& ")
-                .trim()
+              this.state.html.replace(/<.*?>/g, " ").trim()
             );
           }}
         >

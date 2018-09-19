@@ -26,7 +26,7 @@ describe("<Editor />", () => {
 
     expect(wrapper.state("html")).toEqual("");
 
-    textArea.simulate("change", { target: { html: newValue } });
+    textArea.simulate("change", { target: { value: newValue } });
 
     expect(wrapper.state("html")).toEqual(newValue);
   });
