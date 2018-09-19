@@ -19,22 +19,22 @@ describe("<Editor />", () => {
     expect(wrapper.exists(".editorTextArea")).toEqual(true);
   });
 
-  it("updates value when textarea is changed", () => {
-    const wrapper = shallow(<Editor />);
+  it("updates html when textarea is changed", () => {
+    const wrapper = shallow(<Editor sentencesTones={[]} />);
     const textArea = wrapper.find(".editorTextArea");
     const newValue = "Hello, World";
 
-    expect(wrapper.state("value")).toEqual("");
+    expect(wrapper.state("html")).toEqual("");
 
-    textArea.simulate("change", { currentTarget: { value: newValue } });
+    textArea.simulate("change", { target: { value: newValue } });
 
-    expect(wrapper.state("value")).toEqual(newValue);
+    expect(wrapper.state("html")).toEqual(newValue);
   });
 
-  it("saves value to file when save button is pressed", () => {
+  it("saves html to file when save button is pressed", () => {
     const wrapper = shallow(<Editor />);
     const textareaContent = "Hello World!";
-    wrapper.setState({ value: textareaContent });
+    wrapper.setState({ html: textareaContent });
     const saveButton = wrapper.find(".saveButton");
 
     saveButton.simulate("click");
@@ -44,7 +44,7 @@ describe("<Editor />", () => {
     );
   });
 
-  it("updates the value to a text file's contents when open button is pressed", async () => {
+  it("updates the html to a text file's contents when open button is pressed", async () => {
     const wrapper = shallow(<Editor />);
     const openButton = wrapper.find(".openButton");
     const fileContents = "Hello, World!";
@@ -56,7 +56,7 @@ describe("<Editor />", () => {
     await openButton.simulate("click");
 
     expect(nativeUI.promptUserToOpenFileContents).toBeCalled();
-    expect(wrapper.state("value")).toEqual(fileContents);
+    expect(wrapper.state("html")).toEqual(fileContents);
   });
 
   it("analyzes the document inside the textarea", () => {
@@ -66,7 +66,7 @@ describe("<Editor />", () => {
     const analyzeButton = wrapper.find(".analyzeButton");
 
     const textareaContent = "Hello World!";
-    wrapper.setState({ value: textareaContent });
+    wrapper.setState({ html: textareaContent });
 
     analyzeButton.simulate("click");
 

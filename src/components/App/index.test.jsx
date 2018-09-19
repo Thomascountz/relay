@@ -16,17 +16,15 @@ describe("<App />", () => {
   });
 });
 
-describe("this.getDocumentTones", () => {
+describe("this.getTones", () => {
   it("analyzes the given text", async () => {
     const wrapper = shallow(<App />);
 
     Sentiment.analyze = jest.fn(() => {
-      return Promise.resolve({
-        document_tone: { tones: [] }
-      });
+      return Promise.resolve();
     });
 
-    await wrapper.instance().getDocumentTones("foo");
+    await wrapper.instance().getTones("foo");
 
     expect(Sentiment.analyze).toBeCalledWith("foo");
   });
@@ -36,14 +34,16 @@ describe("this.handleAnalyzeClick", () => {
   it("updates state with the result of tone analysis", async () => {
     const wrapper = shallow(<App />);
 
-    jest
-      .spyOn(wrapper.instance(), "getDocumentTones")
-      .mockImplementation(() => {
-        return Promise.resolve(["foo"]);
+    jest.spyOn(wrapper.instance(), "getTones").mockImplementation(() => {
+      return Promise.resolve({
+        document_tone: { tones: ["foo"] },
+        sentences_tone: ["bar"]
       });
+    });
 
     await wrapper.instance().handleAnalyzeClick("Hello, World");
 
     expect(wrapper.state("documentTones")).toEqual(["foo"]);
+    expect(wrapper.state("sentencesTones")).toEqual(["bar"]);
   });
 });
