@@ -6,10 +6,6 @@
 .container {
   margin: 0px auto;
   float: left;
-  height: auto;
+  min-height: 350px;
   width: 100%;
-}
-
-.title {
-  text-align: left;
 }

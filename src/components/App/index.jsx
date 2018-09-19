@@ -7,6 +7,7 @@ import Sentiment from "../../sentiment";
 
 import Editor from "../Editor/index";
 import ToneBar from "../ToneBar";
+import ToneMat from "../ToneMat";
 
 class App extends React.Component {
   state = {
@@ -20,12 +21,14 @@ class App extends React.Component {
       <div className="app container">
         <ToneBar tones={this.state.documentTones} />
         <Editor
+          className="editor"
           value={this.state.documentText}
           handleChange={this.handleChange.bind(this)}
           handleSaveClick={this.handleSaveClick.bind(this)}
           handleOpenClick={this.handleOpenClick.bind(this)}
           handleAnalyzeClick={this.handleAnalyzeClick.bind(this)}
         />
+        <ToneMat className="toneMat" value={this.state.documentText} />
       </div>
     );
   }

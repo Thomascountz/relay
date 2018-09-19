@@ -37,6 +37,7 @@
     "mocha": "^5.2.0",
     "prop-types": "^15.6.2",
     "react-test-renderer": "^16.4.2",
+    "react-textarea-autosize": "^7.0.4",
     "spectron": "^3.8.0",
     "style-loader": "^0.22.1",
     "webpack": "^4.16.5",

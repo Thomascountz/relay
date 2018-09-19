@@ -2,6 +2,8 @@ import React from "react";
 import { hot } from "react-hot-loader";
 import "./styles.css";
 
+import Textarea from "react-textarea-autosize";
+
 const Editor = props => {
   return (
     <div>
@@ -17,7 +19,7 @@ const Editor = props => {
       <button className="button openButton" onClick={props.handleOpenClick}>
         Open
       </button>
-      <textarea
+      <Textarea
         autoFocus="true"
         className="editorTextArea"
         onChange={e => {
