@@ -1,55 +1,32 @@
-import React, { Component } from "react";
-import nativeUI from "../../nativeUI";
+import React from "react";
 import { hot } from "react-hot-loader";
 import "./styles.css";
 
-class Editor extends Component {
-  state = {
-    value: ""
-  };
-
-  handleChange = event => {
-    this.setState({ value: event.currentTarget.value });
-  };
-
-  handleSaveClick = () => {
-    nativeUI.promptUserToSaveContentToFile(this.state.value);
-  };
-
-  handleOpenClick = () => {
-    nativeUI.promptUserToOpenFileContents().then(fileContents => {
-      this.setState({ value: fileContents });
-    });
-  };
-
-  render() {
-    return (
-      <div>
-        <button
-          className="button analyzeButton"
-          onClick={() => {
-            this.props.handleAnalyzeClick(this.state.value);
-          }}
-        >
-          Analyze
-        </button>
-        <button className="button saveButton" onClick={this.handleSaveClick}>
-          Save
-        </button>
-        <button className="button openButton" onClick={this.handleOpenClick}>
-          Open
-        </button>
-        <textarea
-          autoFocus="true"
-          className="editorTextArea"
-          onChange={e => {
-            this.handleChange(e);
-          }}
-          value={this.state.value}
-        />
-      </div>
-    );
-  }
-}
+const Editor = props => {
+  return (
+    <div>
+      <button
+        className="button analyzeButton"
+        onClick={props.handleAnalyzeClick}
+      >
+        Analyze
+      </button>
+      <button className="button saveButton" onClick={props.handleSaveClick}>
+        Save
+      </button>
+      <button className="button openButton" onClick={props.handleOpenClick}>
+        Open
+      </button>
+      <textarea
+        autoFocus="true"
+        className="editorTextArea"
+        onChange={e => {
+          props.handleChange(e);
+        }}
+        value={props.value}
+      />
+    </div>
+  );
+};
 
 export default hot(module)(Editor);

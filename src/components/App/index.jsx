@@ -2,6 +2,7 @@ import React from "react";
 import { hot } from "react-hot-loader";
 import "./styles.css";
 
+import nativeUI from "../../nativeUI";
 import Sentiment from "../../sentiment";
 
 import Editor from "../Editor/index";
@@ -9,6 +10,7 @@ import ToneBar from "../ToneBar";
 
 class App extends React.Component {
   state = {
+    documentText: "",
     documentTones: [],
     sentencesTones: []
   };
@@ -17,13 +19,33 @@ class App extends React.Component {
     return (
       <div className="app container">
         <ToneBar tones={this.state.documentTones} />
-        <Editor handleAnalyzeClick={this.handleAnalyzeClick.bind(this)} />
+        <Editor
+          value={this.state.documentText}
+          handleChange={this.handleChange.bind(this)}
+          handleSaveClick={this.handleSaveClick.bind(this)}
+          handleOpenClick={this.handleOpenClick.bind(this)}
+          handleAnalyzeClick={this.handleAnalyzeClick.bind(this)}
+        />
       </div>
     );
   }
 
-  handleAnalyzeClick(text) {
-    return Sentiment.analyze(text)
+  handleChange(event) {
+    this.setState({ documentText: event.currentTarget.value });
+  }
+
+  handleSaveClick() {
+    nativeUI.promptUserToSaveContentToFile(this.state.documentText);
+  }
+
+  handleOpenClick() {
+    nativeUI.promptUserToOpenFileContents().then(fileContents => {
+      this.setState({ documentText: fileContents });
+    });
+  }
+
+  handleAnalyzeClick() {
+    return Sentiment.analyze(this.state.documentText)
       .then(result => {
         return result;
       })
