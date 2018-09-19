@@ -68,7 +68,7 @@ describe("handleAnalyzeClick", () => {
     Sentiment.analyze = jest.fn(() => {
       return Promise.resolve({
         document_tone: { tones: ["foo"] },
-        sentences_tones: ["bar"]
+        sentences_tone: ["bar"]
       });
     });
 

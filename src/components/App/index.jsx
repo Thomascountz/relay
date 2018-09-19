@@ -28,7 +28,11 @@ class App extends React.Component {
           handleOpenClick={this.handleOpenClick.bind(this)}
           handleAnalyzeClick={this.handleAnalyzeClick.bind(this)}
         />
-        <ToneMat className="toneMat" value={this.state.documentText} />
+        <ToneMat
+          className="toneMat"
+          value={this.state.documentText}
+          sentencesTones={this.state.sentencesTones}
+        />
       </div>
     );
   }
@@ -43,7 +47,7 @@ class App extends React.Component {
 
   handleOpenClick() {
     nativeUI.promptUserToOpenFileContents().then(fileContents => {
-      this.setState({ documentText: fileContents });
+      this.setState({ documentText: fileContents.toString() });
     });
   }
 
@@ -55,7 +59,7 @@ class App extends React.Component {
       .then(result => {
         this.setState({
           documentTones: result.document_tone.tones,
-          sentencesTones: result.sentences_tones
+          sentencesTones: result.sentences_tone
         });
       })
       .catch(() => {
