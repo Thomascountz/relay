@@ -35,18 +35,22 @@ describe("handleSaveClick", () => {
   it("prompts user to save value to file", () => {
     const wrapper = shallow(<App />);
     const documentText = "Hello, World";
-    wrapper.setState({ documentText: documentText });
+    const documentTones = ["foo"];
+    const sentencesTones = ["bar"];
+    wrapper.setState({ documentText, documentTones, sentencesTones });
 
     wrapper.instance().handleSaveClick();
+    const json = JSON.stringify(wrapper.instance().state);
 
-    expect(nativeUI.promptUserToSaveContentToFile).toBeCalledWith(documentText);
+    expect(nativeUI.promptUserToSaveContentToFile).toBeCalledWith(json);
   });
 });
 
 describe("handleOpenClick", () => {
   it("updates the documentText with a text file's contents", async () => {
     const wrapper = shallow(<App />);
-    const fileContents = "Hello, World!";
+    const fileContents =
+      '{"documentText":"Hello, World","documentTones":["foo"],"sentencesTones":["bar"]}';
 
     nativeUI.promptUserToOpenFileContents = jest.fn(() => {
       return Promise.resolve(fileContents);
@@ -55,7 +59,10 @@ describe("handleOpenClick", () => {
     await wrapper.instance().handleOpenClick();
 
     expect(nativeUI.promptUserToOpenFileContents).toBeCalled();
-    expect(wrapper.state("documentText")).toEqual(fileContents);
+
+    expect(wrapper.state("documentText")).toEqual("Hello, World");
+    expect(wrapper.state("documentTones")).toEqual(["foo"]);
+    expect(wrapper.state("sentencesTones")).toEqual(["bar"]);
   });
 });
 
@@ -77,5 +84,30 @@ describe("handleAnalyzeClick", () => {
     expect(Sentiment.analyze).toBeCalledWith(documentText);
     expect(wrapper.state("documentTones")).toEqual(["foo"]);
     expect(wrapper.state("sentencesTones")).toEqual(["bar"]);
+  });
+
+  describe("toJSON", () => {
+    it("turns the app state into a JSON string", () => {
+      const documentText = "Hello, World";
+      const documentTones = [
+        { score: 0.855276, tone_id: "joy", tone_name: "Joy" }
+      ];
+      const sentencesTones = [
+        {
+          sentence_id: 0,
+          text: "Hello, World",
+          tones: [{ score: 0.819448, tone_id: "joy", tone_name: "Joy" }]
+        }
+      ];
+
+      const wrapper = shallow(<App />);
+      wrapper.setState({ documentText, documentTones, sentencesTones });
+
+      const result = wrapper.instance().toJSON();
+      const expected =
+        '{"documentText":"Hello, World","documentTones":[{"score":0.855276,"tone_id":"joy","tone_name":"Joy"}],"sentencesTones":[{"sentence_id":0,"text":"Hello, World","tones":[{"score":0.819448,"tone_id":"joy","tone_name":"Joy"}]}]}';
+
+      expect(result).toEqual(expected);
+    });
   });
 });

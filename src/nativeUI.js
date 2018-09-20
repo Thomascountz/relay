@@ -18,8 +18,8 @@ const promptUserToOpenFileContents = () => {
 const fileSystemDialogConfig = {
   filters: [
     {
-      name: "Text",
-      extensions: ["txt"]
+      name: "Relay",
+      extensions: ["relay", "txt"]
     }
   ]
 };

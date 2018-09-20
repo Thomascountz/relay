@@ -42,12 +42,12 @@ class App extends React.Component {
   }
 
   handleSaveClick() {
-    nativeUI.promptUserToSaveContentToFile(this.state.documentText);
+    nativeUI.promptUserToSaveContentToFile(this.toJSON());
   }
 
   handleOpenClick() {
     nativeUI.promptUserToOpenFileContents().then(fileContents => {
-      this.setState({ documentText: fileContents.toString() });
+      this.setState(JSON.parse(fileContents));
     });
   }
 
@@ -65,6 +65,10 @@ class App extends React.Component {
       .catch(() => {
         // noop
       });
+  }
+
+  toJSON() {
+    return JSON.stringify(this.state);
   }
 }
 
