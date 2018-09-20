@@ -47,7 +47,19 @@ class App extends React.Component {
 
   handleOpenClick() {
     nativeUI.promptUserToOpenFileContents().then(fileContents => {
-      this.setState(JSON.parse(fileContents));
+      try {
+        this.setState(JSON.parse(fileContents));
+      } catch (e) {
+        if (e instanceof SyntaxError) {
+          this.setState({
+            documentText: fileContents.toString(),
+            documentTones: [],
+            sentencesTones: []
+          });
+        } else {
+          throw e;
+        }
+      }
     });
   }
 

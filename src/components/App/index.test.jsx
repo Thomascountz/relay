@@ -32,7 +32,7 @@ describe("handleChange", () => {
 });
 
 describe("handleSaveClick", () => {
-  it("prompts user to save value to file", () => {
+  it("prompts user to the app's state to file", () => {
     const wrapper = shallow(<App />);
     const documentText = "Hello, World";
     const documentTones = ["foo"];
@@ -47,7 +47,7 @@ describe("handleSaveClick", () => {
 });
 
 describe("handleOpenClick", () => {
-  it("updates the documentText with a text file's contents", async () => {
+  it("updates the app's state with a relay file's contents", async () => {
     const wrapper = shallow(<App />);
     const fileContents =
       '{"documentText":"Hello, World","documentTones":["foo"],"sentencesTones":["bar"]}';
@@ -58,11 +58,22 @@ describe("handleOpenClick", () => {
 
     await wrapper.instance().handleOpenClick();
 
-    expect(nativeUI.promptUserToOpenFileContents).toBeCalled();
-
     expect(wrapper.state("documentText")).toEqual("Hello, World");
     expect(wrapper.state("documentTones")).toEqual(["foo"]);
     expect(wrapper.state("sentencesTones")).toEqual(["bar"]);
+  });
+
+  it("updates the app's documentText with a text file's contents", async () => {
+    const wrapper = shallow(<App />);
+    const fileContents = "Hello, World";
+
+    nativeUI.promptUserToOpenFileContents = jest.fn(() => {
+      return Promise.resolve(fileContents);
+    });
+
+    await wrapper.instance().handleOpenClick();
+
+    expect(wrapper.state("documentText")).toEqual("Hello, World");
   });
 });
 
