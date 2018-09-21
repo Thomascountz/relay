@@ -32,7 +32,7 @@ describe("handleChange", () => {
 });
 
 describe("handleSaveClick", () => {
-  it("prompts user to the app's state to file", () => {
+  it("prompts user to save the app's state to file", () => {
     const wrapper = shallow(<App />);
     const documentText = "Hello, World";
     const documentTones = ["foo"];
@@ -40,7 +40,9 @@ describe("handleSaveClick", () => {
     wrapper.setState({ documentText, documentTones, sentencesTones });
 
     wrapper.instance().handleSaveClick();
-    const json = JSON.stringify(wrapper.instance().state);
+
+    const json =
+      '{"documentText":"Hello, World","documentTones":["foo"],"sentencesTones":["bar"]}';
 
     expect(nativeUI.promptUserToSaveContentToFile).toBeCalledWith(json);
   });
