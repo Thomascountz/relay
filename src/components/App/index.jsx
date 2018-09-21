@@ -2,40 +2,65 @@ import React from "react";
 import { hot } from "react-hot-loader";
 import "./styles.css";
 
+import nativeUI from "../../nativeUI";
 import Sentiment from "../../sentiment";
 
 import Editor from "../Editor/index";
 import ToneBar from "../ToneBar";
+import ToneMat from "../ToneMat";
 
 class App extends React.Component {
   state = {
-    documentTones: []
+    documentText: "",
+    documentTones: [],
+    sentencesTones: []
   };
 
   render() {
     return (
       <div className="app container">
-        <h1 className="title"> Hello, Relay! </h1>
         <ToneBar tones={this.state.documentTones} />
-        <Editor handleAnalyzeClick={this.handleAnalyzeClick.bind(this)} />
+        <Editor
+          className="editor"
+          value={this.state.documentText}
+          handleChange={this.handleChange.bind(this)}
+          handleSaveClick={this.handleSaveClick.bind(this)}
+          handleOpenClick={this.handleOpenClick.bind(this)}
+          handleAnalyzeClick={this.handleAnalyzeClick.bind(this)}
+        />
+        <ToneMat
+          className="toneMat"
+          value={this.state.documentText}
+          sentencesTones={this.state.sentencesTones}
+        />
       </div>
     );
   }
 
-  handleAnalyzeClick(text) {
-    this.getDocumentTones(text)
-      .then(tones => {
-        this.setState({ documentTones: tones });
-      })
-      .catch(() => {
-        // noop
-      });
+  handleChange(event) {
+    this.setState({ documentText: event.currentTarget.value });
   }
 
-  getDocumentTones(text) {
-    return Sentiment.analyze(text)
-      .then(results => {
-        return results.document_tone.tones;
+  handleSaveClick() {
+    nativeUI.promptUserToSaveContentToFile(this.state.documentText);
+  }
+
+  handleOpenClick() {
+    nativeUI.promptUserToOpenFileContents().then(fileContents => {
+      this.setState({ documentText: fileContents.toString() });
+    });
+  }
+
+  handleAnalyzeClick() {
+    return Sentiment.analyze(this.state.documentText)
+      .then(result => {
+        return result;
+      })
+      .then(result => {
+        this.setState({
+          documentTones: result.document_tone.tones,
+          sentencesTones: result.sentences_tone
+        });
       })
       .catch(() => {
         // noop
