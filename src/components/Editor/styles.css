@@ -1,7 +1,12 @@
 .editorTextArea {
-  float: left;
+  position: absolute;
+  top: 150px;
+  left: 10px;
+  z-index: 2;
+  padding: 0;
+  background-color: transparent;
   overflow: hidden;
-  width: 50%;
+  width: 95%;
   outline: none;
   resize: none;
   font-family: Arial, Helvetica, sans-serif;
