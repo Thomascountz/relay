@@ -1,44 +1,45 @@
 .tone-signal {
+  text-align: center;
   padding: 0 5px;
-  margin: 0 5px;
+  margin: 0 30px;
   font-weight: bold;
   display: inline-block;
   box-sizing: border-box;
 }
 
 .dot {
-  float: left;
-  height: 20px;
-  width: 20px;
-  background-color: grey;
+  margin: 0 auto 5px auto;
+  line-height: 50px;
+  font-size: 25px;
+  height: 50px;
+  width: 50px;
   border-radius: 50%;
-  margin-right: 10px;
 }
 
 .analytical-dot {
-  background-color: royalblue;
+  background-color: rgba(65, 105, 225, 0.5);
 }
 
 .anger-dot {
-  background-color: firebrick;
+  background-color: rgba(178, 34, 34, 0.5);
 }
 
 .confident-dot {
-  background-color: mediumslateblue;
+  background-color: rgba(124, 104, 238, 0.5);
 }
 
 .fear-dot {
-  background-color: forestgreen;
+  background-color: rgba(34, 139, 34, 0.5);
 }
 
 .joy-dot {
-  background-color: gold;
+  background-color: rgba(255, 217, 0, 0.5);
 }
 
 .sadness-dot {
-  background-color: midnightblue;
+  background-color: rgba(25, 25, 112, 0.5);
 }
 
 .tentative-dot {
-  background-color: teal;
+  background-color: rgba(0, 128, 128, 0.5);
 }
