@@ -1,7 +1,5 @@
 .toneMat {
   position: absolute;
-  top: 150px;
-  left: 10px;
   width: 95%;
   z-index: 1;
   height: 100%;

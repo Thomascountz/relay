@@ -10,6 +10,11 @@
   width: 100%;
 }
 
+.buttons {
+  display: block;
+  width: 100%;
+}
+
 .button {
   width: 33.1%;
   padding: 15px 0;
@@ -17,7 +22,6 @@
   text-decoration: none;
   font-size: 16px;
   outline: none;
-  float: right;
   margin: 2px 1px;
   color: grey;
 }
@@ -50,4 +54,9 @@
 .analyzeButton:hover {
   background-color: gold;
   color: white;
+}
+
+.editor {
+  width: 100%;
+  margin-top: 25px;
 }
