@@ -42,12 +42,10 @@ class App extends React.Component {
         </div>
         <div className="editor">
           <Editor
-            className="editor"
             value={this.state.documentText}
             handleChange={this.handleChange.bind(this)}
           />
           <ToneMat
-            className="toneMat"
             value={this.state.documentText}
             sentencesTones={this.state.sentencesTones}
           />
