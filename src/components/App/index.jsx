@@ -20,34 +20,36 @@ class App extends React.Component {
     return (
       <div className="app container">
         <ToneBar tones={this.state.documentTones} />
-        <button
-          className="button analyzeButton"
-          onClick={this.handleAnalyzeClick.bind(this)}
-        >
-          Analyze
-        </button>
-        <button
-          className="button saveButton"
-          onClick={this.handleSaveClick.bind(this)}
-        >
-          Save
-        </button>
-        <button
-          className="button openButton"
-          onClick={this.handleOpenClick.bind(this)}
-        >
-          Open
-        </button>
-        <Editor
-          className="editor"
-          value={this.state.documentText}
-          handleChange={this.handleChange.bind(this)}
-        />
-        <ToneMat
-          className="toneMat"
-          value={this.state.documentText}
-          sentencesTones={this.state.sentencesTones}
-        />
+        <div className="buttons">
+          <button
+            className="button analyzeButton"
+            onClick={this.handleAnalyzeClick.bind(this)}
+          >
+            Analyze
+          </button>
+          <button
+            className="button saveButton"
+            onClick={this.handleSaveClick.bind(this)}
+          >
+            Save
+          </button>
+          <button
+            className="button openButton"
+            onClick={this.handleOpenClick.bind(this)}
+          >
+            Open
+          </button>
+        </div>
+        <div className="editor">
+          <Editor
+            value={this.state.documentText}
+            handleChange={this.handleChange.bind(this)}
+          />
+          <ToneMat
+            value={this.state.documentText}
+            sentencesTones={this.state.sentencesTones}
+          />
+        </div>
       </div>
     );
   }
