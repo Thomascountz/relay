@@ -11,7 +11,7 @@ it("renders a toneSignal with a given name", () => {
   const renderedName = "Joy";
   const wrapper = shallow(<ToneSignal name={name} />);
 
-  const toneSignalName = wrapper.find(".tone");
+  const toneSignalName = wrapper.find(".tone-signal");
 
   expect(toneSignalName.text()).toContain(renderedName);
 });
@@ -21,7 +21,7 @@ it("renders a toneSignal with a default score of zero", () => {
   const renderedScore = "0";
   const wrapper = shallow(<ToneSignal name={name} />);
 
-  const toneSignalName = wrapper.find(".tone");
+  const toneSignalName = wrapper.find(".tone-signal");
 
   expect(toneSignalName.text()).toContain(renderedScore);
 });
@@ -31,12 +31,12 @@ it("renders a toneSignal with a given score", () => {
   const score = "6.0";
   const wrapper = shallow(<ToneSignal name={name} score={score} />);
 
-  const toneSignalName = wrapper.find(".tone");
+  const toneSignalName = wrapper.find(".tone-signal");
 
   expect(toneSignalName.text()).toContain(score);
 });
 
-it("adds specific class to dot for a given tone name when score is defined", () => {
+it("adds specific class to dot for a given tone name", () => {
   const name = "joy";
   const score = "6.0";
   const wrapper = shallow(<ToneSignal name={name} score={score} />);
@@ -44,14 +44,4 @@ it("adds specific class to dot for a given tone name when score is defined", () 
   const toneSignaldot = wrapper.find(".dot");
 
   expect(toneSignaldot.hasClass("joy-dot")).toEqual(true);
-});
-
-it("does not add a specific class to dot for a given tone name when score is undefined", () => {
-  const name = "joy";
-  const score = undefined;
-  const wrapper = shallow(<ToneSignal name={name} score={score} />);
-
-  const toneSignaldot = wrapper.find(".dot");
-
-  expect(toneSignaldot.hasClass("joy-dot")).toEqual(false);
 });
