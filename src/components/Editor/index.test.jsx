@@ -27,35 +27,4 @@ describe("<Editor />", () => {
 
     expect(handleChange).toBeCalledWith(event);
   });
-
-  it("saves value to file when save button is pressed", () => {
-    const handleSaveClick = jest.fn();
-    const wrapper = shallow(<Editor handleSaveClick={handleSaveClick} />);
-    const saveButton = wrapper.find(".saveButton");
-
-    saveButton.simulate("click");
-
-    expect(handleSaveClick).toBeCalled();
-  });
-
-  it("opens a file when the button is pressed", () => {
-    const handleOpenClick = jest.fn();
-    const wrapper = shallow(<Editor handleOpenClick={handleOpenClick} />);
-    const openButton = wrapper.find(".openButton");
-
-    openButton.simulate("click");
-
-    expect(handleOpenClick).toBeCalled();
-  });
-
-  it("analyzes the document inside the textarea", () => {
-    const handleAnalyzeClick = jest.fn();
-    const wrapper = shallow(<Editor handleAnalyzeClick={handleAnalyzeClick} />);
-
-    const analyzeButton = wrapper.find(".analyzeButton");
-
-    analyzeButton.simulate("click");
-
-    expect(handleAnalyzeClick).toBeCalled();
-  });
 });
