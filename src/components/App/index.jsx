@@ -20,13 +20,28 @@ class App extends React.Component {
     return (
       <div className="app container">
         <ToneBar tones={this.state.documentTones} />
+        <button
+          className="button analyzeButton"
+          onClick={this.handleAnalyzeClick.bind(this)}
+        >
+          Analyze
+        </button>
+        <button
+          className="button saveButton"
+          onClick={this.handleSaveClick.bind(this)}
+        >
+          Save
+        </button>
+        <button
+          className="button openButton"
+          onClick={this.handleOpenClick.bind(this)}
+        >
+          Open
+        </button>
         <Editor
           className="editor"
           value={this.state.documentText}
           handleChange={this.handleChange.bind(this)}
-          handleSaveClick={this.handleSaveClick.bind(this)}
-          handleOpenClick={this.handleOpenClick.bind(this)}
-          handleAnalyzeClick={this.handleAnalyzeClick.bind(this)}
         />
         <ToneMat
           className="toneMat"
@@ -65,9 +80,6 @@ class App extends React.Component {
 
   handleAnalyzeClick() {
     return Sentiment.analyze(this.state.documentText)
-      .then(result => {
-        return result;
-      })
       .then(result => {
         this.setState({
           documentTones: result.document_tone.tones,

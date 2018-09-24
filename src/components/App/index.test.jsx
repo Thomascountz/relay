@@ -34,12 +34,13 @@ describe("handleChange", () => {
 describe("handleSaveClick", () => {
   it("prompts user to save the app's state to file", () => {
     const wrapper = shallow(<App />);
+    const saveButton = wrapper.find(".saveButton");
     const documentText = "Hello, World";
     const documentTones = ["foo"];
     const sentencesTones = ["bar"];
     wrapper.setState({ documentText, documentTones, sentencesTones });
 
-    wrapper.instance().handleSaveClick();
+    saveButton.simulate("click");
 
     const json =
       '{"documentText":"Hello, World","documentTones":["foo"],"sentencesTones":["bar"]}';
@@ -51,6 +52,7 @@ describe("handleSaveClick", () => {
 describe("handleOpenClick", () => {
   it("updates the app's state with a relay file's contents", async () => {
     const wrapper = shallow(<App />);
+    const openButton = wrapper.find(".openButton");
     const fileContents =
       '{"documentText":"Hello, World","documentTones":["foo"],"sentencesTones":["bar"]}';
 
@@ -58,7 +60,7 @@ describe("handleOpenClick", () => {
       return Promise.resolve(fileContents);
     });
 
-    await wrapper.instance().handleOpenClick();
+    await openButton.simulate("click");
 
     expect(wrapper.state("documentText")).toEqual("Hello, World");
     expect(wrapper.state("documentTones")).toEqual(["foo"]);
@@ -67,13 +69,14 @@ describe("handleOpenClick", () => {
 
   it("updates the app's documentText with a text file's contents", async () => {
     const wrapper = shallow(<App />);
+    const openButton = wrapper.find(".openButton");
     const fileContents = "Hello, World";
 
     nativeUI.promptUserToOpenFileContents = jest.fn(() => {
       return Promise.resolve(fileContents);
     });
 
-    await wrapper.instance().handleOpenClick();
+    await openButton.simulate("click");
 
     expect(wrapper.state("documentText")).toEqual("Hello, World");
   });
@@ -82,6 +85,7 @@ describe("handleOpenClick", () => {
 describe("handleAnalyzeClick", () => {
   it("updates state with the result of tone analysis of documentText", async () => {
     const wrapper = shallow(<App />);
+    const analyzeButton = wrapper.find(".analyzeButton");
     const documentText = "Hello, World";
     wrapper.setState({ documentText: documentText });
 
@@ -92,7 +96,7 @@ describe("handleAnalyzeClick", () => {
       });
     });
 
-    await wrapper.instance().handleAnalyzeClick();
+    await analyzeButton.simulate("click");
 
     expect(Sentiment.analyze).toBeCalledWith(documentText);
     expect(wrapper.state("documentTones")).toEqual(["foo"]);
