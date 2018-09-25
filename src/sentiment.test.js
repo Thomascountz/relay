@@ -7,23 +7,22 @@ describe("analyze", () => {
   it("sends a get request with encoded text", async () => {
     const text = "lorem ipsum dolor sit amet";
 
-    axios.get = jest.fn(() => {
+    axios.post = jest.fn(() => {
       return Promise.resolve("Result");
     });
 
     await sentiment.analyze(text);
 
-    expect(axios.get).toBeCalledWith(
-      sentiment.SENTIMENT_ANALYSIS_ENDPOINT +
-        "?text=lorem%20ipsum%20dolor%20sit%20amet"
-    );
+    expect(axios.post).toBeCalledWith(sentiment.SENTIMENT_ANALYSIS_ENDPOINT, {
+      text: text
+    });
   });
 
   it("returns the result of successful requests", () => {
     const text = "lorem ipsum dolor sit amet";
     const expectedResult = "Result";
 
-    axios.get = jest.fn(() => {
+    axios.post = jest.fn(() => {
       return Promise.resolve({ data: expectedResult });
     });
 
