@@ -5,7 +5,7 @@ const SENTIMENT_ANALYSIS_ENDPOINT =
 
 const analyze = text => {
   return axios
-    .get(constructURI(text))
+    .post(SENTIMENT_ANALYSIS_ENDPOINT, build_body(text))
     .then(result => {
       return result.data;
     })
@@ -14,8 +14,8 @@ const analyze = text => {
     });
 };
 
-const constructURI = text => {
-  return encodeURI(SENTIMENT_ANALYSIS_ENDPOINT + "?text=" + text);
+const build_body = text => {
+  return { text: text };
 };
 
 module.exports = {
