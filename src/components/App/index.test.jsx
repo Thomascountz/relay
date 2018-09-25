@@ -29,6 +29,20 @@ describe("handleChange", () => {
 
     expect(wrapper.state("documentText")).toEqual(newValue);
   });
+
+  it("runs analysis when end punctation is entered", () => {
+    const newValue = "foo.";
+    const event = { currentTarget: { value: newValue } };
+    const wrapper = shallow(<App />);
+
+    Sentiment.analyze = jest.fn(() => {
+      return Promise.resolve();
+    });
+
+    wrapper.instance().handleChange(event);
+
+    expect(Sentiment.analyze).toBeCalled();
+  });
 });
 
 describe("handleSaveClick", () => {

@@ -55,6 +55,9 @@ class App extends React.Component {
   }
 
   handleChange(event) {
+    if (this.sentenceIsFinished(event.currentTarget.value)) {
+      this.handleAnalyzeClick();
+    }
     this.setState({ documentText: event.currentTarget.value });
   }
 
@@ -95,6 +98,10 @@ class App extends React.Component {
 
   toJSON() {
     return JSON.stringify(this.state);
+  }
+
+  sentenceIsFinished(text) {
+    return /[.?!]$/.test(text);
   }
 }
 
