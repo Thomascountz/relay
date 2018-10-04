@@ -63,11 +63,10 @@ Runs both `webpack --mode development` to package app into `/dist`, and `electro
 ```
 npm run-script rebuild
 ```
+Runs `electron-packager`, for `darwin` only, and outputs/**overwrites** results into `/builds`
+
+
 
 ### Issues and Bug Reports
 
 https://github.com/Thomascountz/relay/issues
-
-Runs `electron-packager`, for `darwin` only, and outputs/**overwrites** results into `/builds`
-
-
