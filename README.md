@@ -7,6 +7,8 @@ Native text editor that reports NPL sentiment analysis.
 ![Relay Screenshot](https://user-images.githubusercontent.com/19786848/45965404-614b8780-bff6-11e8-8351-4524a8cc1203.png)
 
 ## Quick Start
+Download and Install here: https://github.com/Thomascountz/relay/releases
+
 Use as you would a simple text editor. You can save your file, as well as the analysis, as a `.relay` file, you can open both `.relay` and `.txt` files, and when you click "Analyze," the magic happens!
 
 At the top of the editor is the "ToneBar," this bar displays the overall tone of your document. It is not just the averaging of the tones found in each of the sentences, it's a seperate analysis that takes into account more that just the individual parts. 
@@ -18,8 +20,13 @@ Within the editor, you will see your sentences highlight in order to indicate th
 - Opening a document within the edtior will override any unsaved changes **WITHOUT WARNING**
 - The external API may be sleeping when you first analyze your document. It may take up to 20 seconds for your analysis to appear
 
+### Installation
 
-## Stack
+Released here: https://github.com/Thomascountz/relay/releases
+
+## Development
+
+### Stack
 
 - Electron - Desktop app javascript framework
 - React - View templating framework
@@ -30,16 +37,7 @@ Within the editor, you will see your sentences highlight in order to indicate th
 - Enzyme - Javascript testing utilities written for React
 - NPL API - [Relay-service](https://github.com/thomascountz/relay-service)
 
-## Installation
-
-Released here: https://github.com/Thomascountz/relay/releases
-
-## Issues and Bug Reports
-
-https://github.com/Thomascountz/relay/issues
-
-## Development
-
+### Installation
 Based on the boilerplate here: https://github.com/Thomascountz/react-electron-webpack
 
 - Clone this repo: `https://github.com/Thomascountz/relay.git`
@@ -65,6 +63,10 @@ Runs both `webpack --mode development` to package app into `/dist`, and `electro
 ```
 npm run-script rebuild
 ```
+
+### Issues and Bug Reports
+
+https://github.com/Thomascountz/relay/issues
 
 Runs `electron-packager`, for `darwin` only, and outputs/**overwrites** results into `/builds`
 
